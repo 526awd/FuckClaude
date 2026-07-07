@@ -1,22 +1,19 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
-import sitemap from '@astrojs/sitemap';
-import vercel from '@astrojs/vercel';
-
-
 import cloudflare from '@astrojs/cloudflare';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  output: 'server', // 确保是服务端渲染模式，否则静态预渲染依旧会去跑 fs 代码
-  adapter: cloudflare(),
-  vite: {
-    ssr: {
-      // 允许将这些可能包含不兼容 Node 代码的库进行特定处理
-      noExternal: ['qrcode', 'pngjs'], 
+  output: 'server',              // 建议切换为 server 模式，如果是纯静态请使用 'static'
+  adapter: cloudflare({
+    platformProxy: {
+      enabled: true,
     },
+  }),
+  integrations: [sitemap()],
+  vite: {
     build: {
       rollupOptions: {
-        // 显式告诉打包器，这些是外部/运行时会由 Cloudflare 提供的模块
+        // 关键：显式告诉打包器，这些 node 模块由 Cloudflare 运行时或外部处理
         external: ['node:fs', 'node:util', 'node:zlib', 'node:stream', 'node:assert', 'node:buffer'],
       },
     },
