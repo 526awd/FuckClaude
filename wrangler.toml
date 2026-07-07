@@ -1,0 +1,3 @@
+name = "fuckclaude"
+main = "./dist/server/entry.mjs" # 或者是你指定的打包入口
+compatibility_flags = [ "nodejs_compat" ]
