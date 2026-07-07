@@ -1,3 +1,22 @@
 name = "fuckclaude"
 main = "./dist/server/entry.mjs" # 或者是你指定的打包入口
 compatibility_flags = [ "nodejs_compat" ]
+import { defineConfig } from 'astro/config';
+import cloudflare from '@astrojs/cloudflare';
+
+export default defineConfig({
+  output: 'server', // 确保是服务端渲染模式，否则静态预渲染依旧会去跑 fs 代码
+  adapter: cloudflare(),
+  vite: {
+    ssr: {
+      // 允许将这些可能包含不兼容 Node 代码的库进行特定处理
+      noExternal: ['qrcode', 'pngjs'], 
+    },
+    build: {
+      rollupOptions: {
+        // 显式告诉打包器，这些是外部/运行时会由 Cloudflare 提供的模块
+        external: ['node:fs', 'node:util', 'node:zlib', 'node:stream', 'node:assert', 'node:buffer'],
+      },
+    },
+  },
+});
