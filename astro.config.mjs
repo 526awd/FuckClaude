@@ -3,34 +3,22 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
 
-// `site` must match the real deployment origin so canonical URLs,
-// hreflang links and the generated sitemap point to the correct domain.
-//
-// Output stays `static` (every page is prerendered); the Vercel adapter is
-// only here so the single on-demand route `src/pages/api/check.ts`
-// (`export const prerender = false`) can run as a Vercel Function and read the
-// request's geo headers for the curl/API endpoint.
+
+import cloudflare from '@astrojs/cloudflare';
+
 export default defineConfig({
-  site: 'https://fuckkld.https114514191810lp.edu.eu.org',
-  output: 'static',
-  adapter: vercel(),
-  i18n: {
-    locales: ['en', 'zh'],
-    defaultLocale: 'en',
-    routing: {
-      prefixDefaultLocale: false,
-      redirectToDefaultLocale: false,
+  output: 'server', // 确保是服务端渲染模式，否则静态预渲染依旧会去跑 fs 代码
+  adapter: cloudflare(),
+  vite: {
+    ssr: {
+      // 允许将这些可能包含不兼容 Node 代码的库进行特定处理
+      noExternal: ['qrcode', 'pngjs'], 
+    },
+    build: {
+      rollupOptions: {
+        // 显式告诉打包器，这些是外部/运行时会由 Cloudflare 提供的模块
+        external: ['node:fs', 'node:util', 'node:zlib', 'node:stream', 'node:assert', 'node:buffer'],
+      },
     },
   },
-  integrations: [
-    sitemap({
-      i18n: {
-        defaultLocale: 'en',
-        locales: {
-          en: 'en',
-          zh: 'zh-CN',
-        },
-      },
-    }),
-  ],
 });
