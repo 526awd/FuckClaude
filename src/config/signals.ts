@@ -15,7 +15,8 @@ export type SignalId =
   | 'vendorFonts'
   | 'cnBrowser'
   | 'deviceVendor'
-  | 'emoji';
+  | 'emoji'
+  | 'proxy';
 
 export interface DetectOutcome {
   /** Human-readable detected value. */
@@ -356,6 +357,90 @@ function detectEmoji(): DetectOutcome {
   return { raw: `${vendor} style`, score };
 }
 
+/**
+ * Detect browser proxy/VPN usage through WebRTC leak detection and connection analysis.
+ * This is a heuristic-based approach that checks for common proxy indicators.
+ */
+async function detectProxy(): Promise<DetectOutcome> {
+  const indicators: string[] = [];
+  let score = 0;
+
+  // Check 1: WebRTC local IPs (can leak real IP behind proxy)
+  try {
+    const pc = new RTCPeerConnection({ iceServers: [] });
+    const promise = new Promise<void>((resolve) => {
+      const timeout = setTimeout(() => {
+        pc.close();
+        resolve();
+      }, 2000);
+      pc.onicecandidate = (event) => {
+        if (event.candidate) {
+          const candidate = event.candidate.candidate;
+          const ipMatch = candidate.match(/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/);
+          if (ipMatch) {
+            indicators.push('WebRTC IP leak detected');
+            score = Math.max(score, 0.3);
+          }
+        }
+        clearTimeout(timeout);
+        pc.close();
+        resolve();
+      };
+    });
+    pc.createDataChannel('');
+    pc.createOffer().then((offer) => pc.setLocalDescription(offer));
+    await promise;
+  } catch {
+    // WebRTC not available or blocked
+  }
+
+  // Check 2: Connection type hints
+  try {
+    const conn = (navigator as Navigator & { connection?: { type?: string; effectiveType?: string; rtt?: number } }).connection;
+    if (conn) {
+      if (conn.type === 'vpn') {
+        indicators.push('VPN connection type');
+        score = Math.max(score, 0.8);
+      }
+      if (conn.rtt && conn.rtt > 300) {
+        indicators.push(`High latency (${conn.rtt}ms)`);
+        score = Math.max(score, 0.2);
+      }
+    }
+  } catch {
+    // Connection API not available
+  }
+
+  // Check 3: DNS leak detection via timing
+  try {
+    const start = performance.now();
+    await fetch('https://dns.google/resolve?name=example.com&type=A', { mode: 'no-cors' });
+    const elapsed = performance.now() - start;
+    if (elapsed > 1000) {
+      indicators.push('Slow DNS resolution');
+      score = Math.max(score, 0.15);
+    }
+  } catch {
+    // DNS check failed
+  }
+
+  // Check 4: Proxy-specific headers (if accessible via Service Worker)
+  try {
+    const response = await fetch(window.location.href, { method: 'HEAD', cache: 'no-store' });
+    const via = response.headers.get('via');
+    const xForwardedFor = response.headers.get('x-forwarded-for');
+    if (via || xForwardedFor) {
+      indicators.push('Proxy headers detected');
+      score = Math.max(score, 0.6);
+    }
+  } catch {
+    // Cannot check headers
+  }
+
+  const raw = indicators.length > 0 ? indicators.slice(0, 2).join(', ') : 'no proxy detected';
+  return { raw, score: Math.min(1, score) };
+}
+
 const ICON = {
   clock:
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
@@ -374,18 +459,21 @@ const ICON = {
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h16M4 16h16"/><circle cx="9" cy="8" r="2.2"/><circle cx="15" cy="16" r="2.2"/></svg>',
   smile:
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5s1.4 2 3.5 2 3.5-2 3.5-2"/><path d="M9 9.5h.01M15 9.5h.01"/></svg>',
+  proxy:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>',
 };
 
 export const SIGNALS: SignalDef[] = [
-  { id: 'timezone', weight: 26, claudeUsed: true, icon: ICON.clock, detect: detectTimezone },
-  { id: 'language', weight: 20, icon: ICON.globe, detect: detectLanguage },
-  { id: 'fonts', weight: 16, icon: ICON.type, detect: detectFonts },
+  { id: 'timezone', weight: 22, claudeUsed: true, icon: ICON.clock, detect: detectTimezone },
+  { id: 'language', weight: 18, icon: ICON.globe, detect: detectLanguage },
+  { id: 'fonts', weight: 14, icon: ICON.type, detect: detectFonts },
+  { id: 'proxy', weight: 12, icon: ICON.proxy, detect: detectProxy },
   { id: 'vendorFonts', weight: 10, icon: ICON.typeBox, detect: detectVendorFonts },
   { id: 'cnBrowser', weight: 8, icon: ICON.compass, detect: detectCnBrowser },
   { id: 'deviceVendor', weight: 6, icon: ICON.phone, detect: detectDeviceVendor },
-  { id: 'intlLocale', weight: 6, icon: ICON.sliders, detect: detectIntlLocale },
-  { id: 'timezoneOffset', weight: 4, icon: ICON.clockOffset, detect: detectTimezoneOffset },
-  { id: 'emoji', weight: 4, icon: ICON.smile, detect: detectEmoji },
+  { id: 'intlLocale', weight: 5, icon: ICON.sliders, detect: detectIntlLocale },
+  { id: 'timezoneOffset', weight: 3, icon: ICON.clockOffset, detect: detectTimezoneOffset },
+  { id: 'emoji', weight: 2, icon: ICON.smile, detect: detectEmoji },
 ];
 
 export type RiskBand = 'low' | 'medium' | 'high';

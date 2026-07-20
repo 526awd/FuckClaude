@@ -71,6 +71,9 @@ export const ui = {
     'signal.emoji.name': 'Emoji rendering style',
     'signal.emoji.desc':
       'OS vendor guessed from the user agent; a weak, loosely correlated signal.',
+    'signal.proxy.name': 'Proxy / VPN detection',
+    'signal.proxy.desc':
+      'Detects browser proxy or VPN usage through WebRTC leak detection, connection analysis, and proxy header checks.',
 
     'scan.detecting': 'Checking',
     'scan.ready': 'Ready to scan',
@@ -78,7 +81,7 @@ export const ui = {
     'result.noHits': 'No strong China signals matched. Low risk.',
 
     'signals.title': 'What gets scanned',
-    'signals.sub': 'Nine locale fingerprints, weighted to a 0–100 risk score.',
+    'signals.sub': 'Ten locale fingerprints, weighted to a 0–100 risk score.',
 
     'how.title': 'How the check works',
     'how.p1':
@@ -190,6 +193,9 @@ export const ui = {
     'signal.timezoneOffset.desc': 'getTimezoneOffset() 是否为 UTC+8。',
     'signal.emoji.name': 'Emoji 渲染风格',
     'signal.emoji.desc': '由 UA 推断操作系统厂商,弱相关信号。',
+    'signal.proxy.name': '代理 / VPN 检测',
+    'signal.proxy.desc':
+      '通过 WebRTC 泄漏检测、连接分析和代理头检查检测浏览器代理或 VPN 使用。',
 
     'scan.detecting': '检测中',
     'scan.ready': '待检测',
@@ -197,7 +203,7 @@ export const ui = {
     'result.noHits': '没有命中明显的中国信号,风险较低。',
 
     'signals.title': '检测哪些信号',
-    'signals.sub': '九项区域指纹,加权得出 0–100 风险分。',
+    'signals.sub': '十项区域指纹,加权得出 0–100 风险分。',
 
     'how.title': '检测原理',
     'how.p1':
@@ -308,6 +314,9 @@ export const ui = {
     'signal.timezoneOffset.desc': 'getTimezoneOffset()がUTC+8と一致するか。',
     'signal.emoji.name': '絵文字レンダリングスタイル',
     'signal.emoji.desc': 'User-Agentから推測されたOSベンダー。弱い相関のシグナル。',
+    'signal.proxy.name': 'プロキシ / VPN 検出',
+    'signal.proxy.desc':
+      'WebRTCリーク検出、接続分析、プロキシヘッダーチェックによりブラウザプロキシまたはVPNの使用を検出。',
 
     'scan.detecting': '検査中',
     'scan.ready': 'スキャン準備完了',
@@ -315,7 +324,7 @@ export const ui = {
     'result.noHits': '強い中国シグナルは見つかりませんでした。低リスク。',
 
     'signals.title': '検査対象',
-    'signals.sub': '9つのロケールフィンガープリントを重み付けし、0–100のリスクスコアに。',
+    'signals.sub': '10つのロケールフィンガープリントを重み付けし、0–100のリスクスコアに。',
 
     'how.title': '仕組み',
     'how.p1':
@@ -427,6 +436,9 @@ export const ui = {
     'signal.timezoneOffset.desc': 'getTimezoneOffset()이 UTC+8과 일치하는지 여부.',
     'signal.emoji.name': '이모지 렌더링 스타일',
     'signal.emoji.desc': 'User-Agent에서 추측한 OS 벤더. 약한 상관관계의 신호.',
+    'signal.proxy.name': '프록시 / VPN 감지',
+    'signal.proxy.desc':
+      'WebRTC 누수 감지, 연결 분석 및 프록시 헤더 검사를 통해 브라우저 프록시 또는 VPN 사용을 감지합니다.',
 
     'scan.detecting': '확인 중',
     'scan.ready': '스캔 준비 완료',
@@ -434,7 +446,7 @@ export const ui = {
     'result.noHits': '강한 중국 신호가 없습니다. 낮은 위험.',
 
     'signals.title': '검사 항목',
-    'signals.sub': '9가지 로케일 지문을 가중치로 0–100 위험 점수 산출.',
+    'signals.sub': '10가지 로케일 지문을 가중치로 0–100 위험 점수 산출.',
 
     'how.title': '작동 방식',
     'how.p1':
@@ -548,6 +560,9 @@ export const ui = {
     'signal.emoji.name': 'Style de rendu des emojis',
     'signal.emoji.desc':
       'Fournisseur OS deviné à partir du user-agent ; un signal faible et peu corrélé.',
+    'signal.proxy.name': 'Détection Proxy / VPN',
+    'signal.proxy.desc':
+      'Détecte l\'utilisation de proxy navigateur ou VPN via la détection de fuite WebRTC, l\'analyse de connexion et les vérifications d\'en-têtes proxy.',
 
     'scan.detecting': 'Vérification',
     'scan.ready': 'Prêt à analyser',
@@ -555,7 +570,7 @@ export const ui = {
     'result.noHits': 'Aucun signal chinois fort détecté. Risque faible.',
 
     'signals.title': 'Ce qui est analysé',
-    'signals.sub': 'Neuf empreintes de paramètres régionaux, pondérées en un score de risque de 0 à 100.',
+    'signals.sub': 'Dix empreintes de paramètres régionaux, pondérées en un score de risque de 0 à 100.',
 
     'how.title': 'Comment ça fonctionne',
     'how.p1':
@@ -669,6 +684,9 @@ export const ui = {
     'signal.emoji.name': 'Emoji-Darstellungsstil',
     'signal.emoji.desc':
       'OS-Anbieter vom User-Agent abgeleitet; ein schwaches, lose korreliertes Signal.',
+    'signal.proxy.name': 'Proxy / VPN Erkennung',
+    'signal.proxy.desc':
+      'Erkennt Browser-Proxy oder VPN-Nutzung durch WebRTC-Leckerkennung, Verbindungsanalyse und Proxy-Header-Prüfungen.',
 
     'scan.detecting': 'Prüfe',
     'scan.ready': 'Bereit zum Scannen',
@@ -676,7 +694,7 @@ export const ui = {
     'result.noHits': 'Keine starken China-Signale gefunden. Niedriges Risiko.',
 
     'signals.title': 'Was wird gescannt',
-    'signals.sub': 'Neun Gebietsschema-Fingerabdrücke, gewichtet zu einem Risikowert von 0–100.',
+    'signals.sub': 'Zehn Gebietsschema-Fingerabdrücke, gewichtet zu einem Risikowert von 0–100.',
 
     'how.title': 'Wie die Prüfung funktioniert',
     'how.p1':
@@ -787,12 +805,15 @@ export const ui = {
     'signal.emoji.name': 'Estilo de renderizado de emojis',
     'signal.emoji.desc':
       'Proveedor del SO deducido del user-agent; una señal débil y poco correlacionada.',
+    'signal.proxy.name': 'Detección de Proxy / VPN',
+    'signal.proxy.desc':
+      'Detecta el uso de proxy del navegador o VPN a través de detección de fugas WebRTC, análisis de conexiones y verificaciones de encabezados proxy.',
     'scan.detecting': 'Verificando',
     'scan.ready': 'Listo para escanear',
     'result.hitsTitle': 'Señales coincidentes',
     'result.noHits': 'No se encontraron señales fuertes de China. Riesgo bajo.',
     'signals.title': 'Qué se escanea',
-    'signals.sub': 'Nueve huellas de configuración regional, ponderadas en un puntaje de riesgo de 0–100.',
+    'signals.sub': 'Diez huellas de configuración regional, ponderadas en un puntaje de riesgo de 0–100.',
     'how.title': 'Cómo funciona la verificación',
     'how.p1':
       'Cuando Claude Code apunta a un endpoint proxy a través de ANTHROPIC_BASE_URL, informes públicos de ingeniería inversa encontraron que lee la zona horaria del SO y el nombre del proxy, luego oculta el veredicto dentro del prompt del sistema con esteganografía Unicode — el separador de fecha y cuatro apóstrofos similares en la línea "Today\'s date" codifican si pareces un usuario chino.',
@@ -897,12 +918,15 @@ export const ui = {
     'signal.emoji.name': 'Estilo de renderização de emojis',
     'signal.emoji.desc':
       'Fornecedor do SO deduzido do user-agent; um sinal fraco e pouco correlacionado.',
+    'signal.proxy.name': 'Detecção de Proxy / VPN',
+    'signal.proxy.desc':
+      'Detecta uso de proxy do navegador ou VPN através de detecção de vazamento WebRTC, análise de conexão e verificações de cabeçalhos proxy.',
     'scan.detecting': 'Verificando',
     'scan.ready': 'Pronto para escanear',
     'result.hitsTitle': 'Sinais correspondentes',
     'result.noHits': 'Nenhum sinal forte da China encontrado. Risco baixo.',
     'signals.title': 'O que é escaneado',
-    'signals.sub': 'Nove impressões de configuração regional, ponderadas em uma pontuação de risco de 0–100.',
+    'signals.sub': 'Dez impressões de configuração regional, ponderadas em uma pontuação de risco de 0–100.',
     'how.title': 'Como a verificação funciona',
     'how.p1':
       'Quando o Claude Code aponta para um endpoint proxy através do ANTHROPIC_BASE_URL, relatórios públicos de engenharia reversa descobriram que ele lê o fuso horário do SO e o nome do proxy, depois esconde o veredito dentro do prompt do sistema com esteganografia Unicode — o separador de data e quatro apóstrofos semelhantes na linha "Today\'s date" codificam se você parece um usuário chinês.',
@@ -1007,12 +1031,15 @@ export const ui = {
     'signal.emoji.name': 'Стиль отображения эмодзи',
     'signal.emoji.desc':
       'Поставщик ОС, определённый по user-agent; слабый, слабо коррелированный сигнал.',
+    'signal.proxy.name': 'Определение прокси / VPN',
+    'signal.proxy.desc':
+      'Определяет использование прокси-сервера браузера или VPN с помощью обнаружения утечек WebRTC, анализа соединений и проверок заголовков прокси.',
     'scan.detecting': 'Проверка',
     'scan.ready': 'Готово к сканированию',
     'result.hitsTitle': 'Совпавшие сигналы',
     'result.noHits': 'Сильные китайские сигналы не обнаружены. Низкий риск.',
     'signals.title': 'Что сканируется',
-    'signals.sub': 'Девять отпечатков региональных настроек, взвешенных в оценку риска 0–100.',
+    'signals.sub': 'Десять отпечатков региональных настроек, взвешенных в оценку риска 0–100.',
     'how.title': 'Как работает проверка',
     'how.p1':
       'Когда Claude Code указывает на прокси-эндпоинт через ANTHROPIC_BASE_URL, публичные отчёты реверс-инженерии обнаружили, что он читает часовой пояс ОС и имя прокси, затем скрывает вердикт в системном промпте с помощью стеганографии Unicode — разделитель даты и четыре похожих апострофа в строке «Today\'s date» кодируют, похожи ли вы на китайского пользователя.',
@@ -1117,12 +1144,15 @@ export const ui = {
     'signal.emoji.name': 'نمط عرض الرموز التعبيرية',
     'signal.emoji.desc':
       'مزود نظام التشغيل المستنتج من user-agent؛ إشارة ضعيفة وغير مرتبطة بشكل وثيق.',
+    'signal.proxy.name': 'كشف البروكسي / VPN',
+    'signal.proxy.desc':
+      'يكتشف استخدام البروكسي أو VPN من خلال كشف تسريبات WebRTC وتحليل الاتصال وفحص رؤوس البروكسي.',
     'scan.detecting': 'جاري التحقق',
     'scan.ready': 'جاهز للمسح',
     'result.hitsTitle': 'الإشارات المتطابقة',
     'result.noHits': 'لم يتم العثور على إشارات صينية قوية. منخفض المخاطر.',
     'signals.title': 'ما الذي يتم فحسه',
-    'signals.sub': 'تسعة بصمات إعدادات اللغة، مرجحة في درجة مخاطر من 0–100.',
+    'signals.sub': 'عشر بصمات إعدادات اللغة، مرجحة في درجة مخاطر من 0–100.',
     'how.title': 'كيف تعمل الفحصة',
     'how.p1':
       'عندما يشير Claude Code إلى نقطة نهاية عبر ANTHROPIC_BASE_URL، وجدت تقارير الهندسة العكسية العامة أنه يقرأ المنطقة الزمنية لنظام التشغيل واسم مضيف الوكيل، ثم يخفي الحكم في موجه النظام باستخدام 스테가노غرافيا Unicode — فاصل التاريخ وأربعة علامات اقتباس متشابهة في سطر "Today\'s date" ترمزان ما إذا كنت تبدو كمستخدم صيني.',
@@ -1227,12 +1257,15 @@ export const ui = {
     'signal.emoji.name': 'इमोजी रेंडरिंग शैली',
     'signal.emoji.desc':
       'User-agent से अनुमानित OS विक्रेता; एक कमज़ोर, कम सहसंबद्ध संकेत।',
+    'signal.proxy.name': 'प्रॉक्सी / VPN पहचान',
+    'signal.proxy.desc':
+      'WebRTC रिसाव का पता लगाने, कनेक्शन विश्लेषण और प्रॉक्सी हेडर जांच के माध्यम से ब्राउज़र प्रॉक्सी या VPN उपयोग का पता लगाता है।',
     'scan.detecting': 'जांच हो रही है',
     'scan.ready': 'स्कैन के लिए तैयार',
     'result.hitsTitle': 'मिलान संकेत',
     'result.noHits': 'कोई मजबूत चीनी संकेत नहीं मिला। कम जोखिम।',
     'signals.title': 'क्या स्कैन होता है',
-    'signals.sub': 'नौ लोकेल फ़िंगरप्रिंट, 0–100 जोखिम स्कोर में वज़न दिया गया।',
+    'signals.sub': 'दस लोकेल फ़िंगरप्रिंट, 0–100 जोखिम स्कोर में वज़न दिया गया।',
     'how.title': 'जांच कैसे काम करती है',
     'how.p1':
       'जब Claude Code ANTHROPIC_BASE_URL के माध्यम से प्रॉक्सी एंडपॉइंट की ओर इशारा करता है, तो सार्वजनिक रिवर्स इंजीनियरिंग रिपोर्ट में पाया गया कि यह OS टाइमज़ोन और प्रॉक्सी होस्टनेम पढ़ता है, फिर Unicode स्टेग्नोग्राफ़ी से सिस्टम प्रॉम्प्ट में फ़ैसला छिपाता है — "Today\'s date" लाइन में दिनांक विभाजक और चार समान एपोस्ट्रोफ़ एन्कोड करते हैं कि क्या आप चीनी उपयोगकर्ता जैसे दिखते हैं।',
@@ -1337,12 +1370,15 @@ export const ui = {
     'signal.emoji.name': 'Stile di rendering delle emoji',
     'signal.emoji.desc':
       'Fornitore OS dedotto dal user-agent; un segnale debole e poco correlato.',
+    'signal.proxy.name': 'Rilevamento Proxy / VPN',
+    'signal.proxy.desc':
+      'Rileva l\'uso di proxy del browser o VPN tramite il rilevamento delle fughe WebRTC, l\'analisi della connessione e i controlli delle intestazioni proxy.',
     'scan.detecting': 'Verifica in corso',
     'scan.ready': 'Pronto per la scansione',
     'result.hitsTitle': 'Segnali corrispondenti',
     'result.noHits': 'Nessun forte segnale cinese trovato. Rischio basso.',
     'signals.title': 'Cosa viene scansionato',
-    'signals.sub': 'Nove impronte delle impostazioni locali, pesate in un punteggio di rischio da 0 a 100.',
+    'signals.sub': 'Dieci impronte delle impostazioni locali, pesate in un punteggio di rischio da 0 a 100.',
     'how.title': 'Come funziona la verifica',
     'how.p1':
       'Quando Claude Code punta a un endpoint proxy tramite ANTHROPIC_BASE_URL, rapporti pubblici di reverse engineering hanno scoperto che legge il fuso orario OS e il nome host del proxy, poi nasconde il verdetto nel prompt di sistema con steganografia Unicode — il separatore di data e quattro apostrofi simili nella riga "Today\'s date" codificano se sembri un utente cinese.',
@@ -1447,12 +1483,15 @@ export const ui = {
     'signal.emoji.name': 'Emoji weergavestijl',
     'signal.emoji.desc':
       'OS leverancier afgeleid van user-agent; een zwak, los gecorrigeerd signaal.',
+    'signal.proxy.name': 'Proxy / VPN detectie',
+    'signal.proxy.desc':
+      'Detecteert browser proxy of VPN gebruik door WebRTC lekdetectie, verbindingsanalyse en proxy header controles.',
     'scan.detecting': 'Controleren',
     'scan.ready': 'Klaar om te scannen',
     'result.hitsTitle': 'Overeenkomende signalen',
     'result.noHits': 'Geen sterke Chinese signalen gevonden. Laag risico.',
     'signals.title': 'Wat er wordt gescand',
-    'signals.sub': 'Negen locale vingerafdrukken, gewogen tot een risicoscore van 0–100.',
+    'signals.sub': 'Tien locale vingerafdrukken, gewogen tot een risicoscore van 0–100.',
     'how.title': 'Hoe de controle werkt',
     'how.p1':
       'Wanneer Claude Code wijst naar een proxy endpoint via ANTHROPIC_BASE_URL, hebben openbare reverse-engineering rapportages ontdekt dat het de OS tijdzone en proxy hostnaam leest, en het oordeel dan verbergt in het systeem prompt met Unicode steganografie — de datum scheidingsteken en vier vergelijkbare apostroffen in de "Today\'s date" regel coderen of je lijkt op een Chinese gebruiker.',
@@ -1557,12 +1596,15 @@ export const ui = {
     'signal.emoji.name': 'Styl renderowania emoji',
     'signal.emoji.desc':
       'Dostawca systemu operacyjnego wywnioskowany z user-agent; słabo skorelowany sygnał.',
+    'signal.proxy.name': 'Wykrywanie Proxy / VPN',
+    'signal.proxy.desc':
+      'Wykrywa użycie proxy przeglądarki lub VPN poprzez wykrywanie wycieków WebRTC, analizę połączeń i sprawdzanie nagłówków proxy.',
     'scan.detecting': 'Sprawdzanie',
     'scan.ready': 'Gotowy do skanowania',
     'result.hitsTitle': 'Dopasowane sygnały',
     'result.noHits': 'Nie znaleziono silnych sygnałów chińskich. Niskie ryzyko.',
     'signals.title': 'Co jest skanowane',
-    'signals.sub': 'Dziewięć odcisków ustawień regionalnych, ważonych w wynik ryzyka 0–100.',
+    'signals.sub': 'Dziesięć odcisków ustawień regionalnych, ważonych w wynik ryzyka 0–100.',
     'how.title': 'Jak działa sprawdzanie',
     'how.p1':
       'Gdy Claude Code wskazuje na endpoint proxy przez ANTHROPIC_BASE_URL, publiczne raporty inżynierii wstecznej wykryły, że czyta strefę czasową systemu i nazwę hosta proxy, a następnie ukrywa werdykt w prompt systemowym za pomocą steganografii Unicode — separator daty i cztery podobne apostrofy w wierszu "Today\'s date" kodują, czy wyglądasz jak chiński użytkownik.',
@@ -1667,12 +1709,15 @@ export const ui = {
     'signal.emoji.name': 'Emoji işleme stili',
     'signal.emoji.desc':
       'User-agent\'tan tahmin edilen işletim sistemi satıcısı; zayıf, gevşek korelasyonlu bir işaret.',
+    'signal.proxy.name': 'Proxy / VPN Algılama',
+    'signal.proxy.desc':
+      'WebRTC sızıntı tespiti, bağlantı analizi ve proxy başlık kontrolleri aracılığıyla tarayıcı proxy veya VPN kullanımını algılar.',
     'scan.detecting': 'Kontrol ediliyor',
     'scan.ready': 'Taramaya hazır',
     'result.hitsTitle': 'Eşleşen işaretler',
     'result.noHits': 'Güçlü Çin işareti bulunamadı. Düşük risk.',
     'signals.title': 'Tarama yapılan şeyler',
-    'signals.sub': 'Dokuz yerel ayar parmak izi, 0–100 risk puanına ağırlıklandırılmış.',
+    'signals.sub': 'On yerel ayar parmak izi, 0–100 risk puanına ağırlıklandırılmış.',
     'how.title': 'Kontrol nasıl çalışır',
     'how.p1':
       'Claude Code ANTHROPIC_BASE_URL üzerinden bir proxy uç noktasını gösterdiğinde, kamu tersine mühendislik raporları onun işletim sistemi saat dilimini ve proxy ana bilgisayar adını okuduğunu, ardından Unicode steganografi ile sistem isteminde sonucu gizlediğini ortaya koyuyor — "Today\'s date" satırındaki tarih ayırıcısı ve dört benzer kesme işareti, Çin kullanıcısı görünüp görünmediğinizi kodlar.',
@@ -1777,12 +1822,15 @@ export const ui = {
     'signal.emoji.name': 'Phong cách hiển thị emoji',
     'signal.emoji.desc':
       'Nhà cung cấp OS suy ra từ user-agent; tín hiệu yếu và ít tương quan.',
+    'signal.proxy.name': 'Phát hiện Proxy / VPN',
+    'signal.proxy.desc':
+      'Phát hiện sử dụng proxy trình duyệt hoặc VPN thông qua phát hiện rò rỉ WebRTC, phân tích kết nối và kiểm tra header proxy.',
     'scan.detecting': 'Đang kiểm tra',
     'scan.ready': 'Sẵn sàng quét',
     'result.hitsTitle': 'Tín hiệu khớp',
     'result.noHits': 'Không tìm thấy tín hiệu Trung Quốc mạnh. Rủi ro thấp.',
     'signals.title': 'Những gì được quét',
-    'signals.sub': 'Chín vân tay vùng cục bộ, được cân nhắc thành điểm rủi ro 0–100.',
+    'signals.sub': 'Mười vân tay vùng cục bộ, được cân nhắc thành điểm rủi ro 0–100.',
     'how.title': 'Cách kiểm tra hoạt động',
     'how.p1':
       'Khi Claude Code trỏ đến endpoint proxy qua ANTHROPIC_BASE_URL, các báo cáo reverse engineering công khai phát hiện nó đọc múi giờ OS và tên host proxy, sau đó giấu phán quyết trong system prompt bằng steganography Unicode — dấu phân tách ngày và bốn dấu nháy đơn giống nhau trong dòng "Today\'s date" mã hóa liệu bạn có trông giống người dùng Trung Quốc không.',
@@ -1887,12 +1935,15 @@ export const ui = {
     'signal.emoji.name': 'สไตล์การเรนเดอร์อิโมจิ',
     'signal.emoji.desc':
       'ผู้ให้บริการ OS ที่คาดเดาจาก user-agent สัญญาณที่อ่อนและเกี่ยวข้องน้อย',
+    'signal.proxy.name': 'การตรวจจับ Proxy / VPN',
+    'signal.proxy.desc':
+      'ตรวจจับการใช้งาน proxy เบราว์เซอร์หรือ VPN ผ่านการตรวจจับการรั่วไหล WebRTC การวิเคราะห์การเชื่อมต่อ และการตรวจสอบ header proxy',
     'scan.detecting': 'กำลังตรวจสอบ',
     'scan.ready': 'พร้อมสแกน',
     'result.hitsTitle': 'สัญญาณที่ตรงกัน',
     'result.noHits': 'ไม่พบสัญญาณจีนที่แข็งแกร่ง ความเสี่ยงต่ำ',
     'signals.title': 'สิ่งที่ถูกสแกน',
-    'signals.sub': 'ลายนิ้วมือ locale เก้ารายการ ชั่งน้ำหนักเป็นคะแนนความเสี่ยง 0–100',
+    'signals.sub': 'ลายนิ้วมือ locale สิบรายการ ชั่งน้ำหนักเป็นคะแนนความเสี่ยง 0–100',
     'how.title': 'วิธีการทำงานของการตรวจสอบ',
     'how.p1':
       'เมื่อ Claude Code ชี้ไปที่ endpoint ผ่าน ANTHROPIC_BASE_URL รายงาน reverse engineering สาธารณะพบว่ามันอ่านโซนเวลา OS และชื่อโฮสต์ proxy แล้วซ่อนคำตัดสินไว้ใน system prompt ด้วย Unicode steganography — ตัวคั่นวันที่และเครื่องหมายอัญประกาศสี่ตัวที่คล้ายกันในบรรทัด "Today\'s date" endcode ว่าคุณดูเหมือนผู้ใช้จีนหรือไม่',
@@ -1997,12 +2048,15 @@ export const ui = {
     'signal.emoji.name': 'Gaya rendering emoji',
     'signal.emoji.desc':
       'Vendor OS dugaan dari user-agent; sinyal lemah dan berkorelasi rendah.',
+    'signal.proxy.name': 'Deteksi Proxy / VPN',
+    'signal.proxy.desc':
+      'Mendeteksi penggunaan proxy browser atau VPN melalui deteksi kebocoran WebRTC, analisis koneksi, dan pemeriksaan header proxy.',
     'scan.detecting': 'Memeriksa',
     'scan.ready': 'Siap memindai',
     'result.hitsTitle': 'Sinyal yang cocok',
     'result.noHits': 'Tidak ada sinyal China kuat yang ditemukan. Risiko rendah.',
     'signals.title': 'Apa yang dipindai',
-    'signals.sub': 'Sembilan sidik jari locale, diboboti menjadi skor risiko 0–100.',
+    'signals.sub': 'Sepuluh sidik jari locale, diboboti menjadi skor risiko 0–100.',
     'how.title': 'Cara kerja pemeriksaan',
     'how.p1':
       'Ketika Claude Code menunjuk ke endpoint proxy melalui ANTHROPIC_BASE_URL, laporan reverse engineering publik menemukan bahwa ia membaca zona waktu OS dan nama host proxy, lalu menyembunyikan keputusan di dalam system prompt dengan steganografi Unicode — pemisah tanggal dan empat tanda kutip serupa di baris "Today\'s date" mengenkripsi apakah Anda tampak seperti pengguna China.',
