@@ -12,6 +12,8 @@ const { lang } = Astro.props;
     (Object.entries(languages) as [Lang, string][]).map(([code, label]) => {
       const hreflang: Record<string, string> = {
         en: 'en', zh: 'zh-CN', ja: 'ja-JP', ko: 'ko-KR', fr: 'fr-FR', de: 'de-DE',
+        es: 'es', pt: 'pt-BR', ru: 'ru', ar: 'ar', hi: 'hi', it: 'it',
+        nl: 'nl', pl: 'pl', tr: 'tr', vi: 'vi', th: 'th', id: 'id',
       };
       return (
         <a
