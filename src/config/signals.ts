@@ -411,14 +411,39 @@ async function detectProxy(): Promise<DetectOutcome> {
     // Connection API not available
   }
 
-  // Check 3: DNS leak detection via timing
+  // Check 3: DNS leak detection via timing (multiple DNS services)
   try {
-    const start = performance.now();
-    await fetch('https://dns.google/resolve?name=example.com&type=A', { mode: 'no-cors' });
-    const elapsed = performance.now() - start;
-    if (elapsed > 1000) {
-      indicators.push('Slow DNS resolution');
-      score = Math.max(score, 0.15);
+    // Use multiple DNS services for better coverage
+    const dnsServices = [
+      'https://1.1.1.1/dns-query?name=example.com&type=A',  // Cloudflare (全球可访问)
+      'https://dns.alidns.com/resolve?name=example.com&type=A',  // 阿里DNS (国内)
+      'https://doh.pub/dns-query?name=example.com&type=A',  // 腾讯DNS (国内)
+      'https://dns.google/resolve?name=example.com&type=A',  // Google (可能被墙)
+    ];
+    
+    let slowDnsCount = 0;
+    let totalDnsTests = 0;
+    
+    for (const dnsUrl of dnsServices) {
+      try {
+        const start = performance.now();
+        await fetch(dnsUrl, { mode: 'no-cors', signal: AbortSignal.timeout(2000) });
+        const elapsed = performance.now() - start;
+        totalDnsTests++;
+        if (elapsed > 800) {
+          slowDnsCount++;
+        }
+      } catch {
+        // DNS service failed (可能被墙或超时)
+        totalDnsTests++;
+        slowDnsCount++;
+      }
+    }
+    
+    // 如果大部分DNS服务都慢或失败，可能经过代理
+    if (totalDnsTests > 0 && slowDnsCount / totalDnsTests > 0.5) {
+      indicators.push('Slow/unreachable DNS services');
+      score = Math.max(score, 0.2);
     }
   } catch {
     // DNS check failed
