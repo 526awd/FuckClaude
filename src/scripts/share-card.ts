@@ -211,11 +211,31 @@ export async function renderResultCard(d: CardData): Promise<Blob | null> {
   drawChips(ctx, d.hits, chipsY, SIZE - 160);
 
   // Footer.
+  const footerText: Record<string, string> = {
+    en: 'Measure yours at fuck-claude.vercel.app',
+    zh: '在 fuck-claude.vercel.app 测测你的',
+    ja: 'fuck-claude.vercel.app で自分をチェック',
+    ko: 'fuck-claude.vercel.app 에서 확인하세요',
+    fr: 'Testez le vôtre sur fuck-claude.vercel.app',
+    de: 'Testen Sie es auf fuck-claude.vercel.app',
+    es: 'Prueba el tuyo en fuck-claude.vercel.app',
+    pt: 'Teste o seu em fuck-claude.vercel.app',
+    ru: 'Проверьте на fuck-claude.vercel.app',
+    ar: 'تحقق من 결과ك على fuck-claude.vercel.app',
+    hi: 'अपना परीक्षण करें fuck-claude.vercel.app पर',
+    it: 'Prova il tuo su fuck-claude.vercel.app',
+    nl: 'Test die van jou op fuck-claude.vercel.app',
+    pl: 'Sprawdź swój na fuck-claude.vercel.app',
+    tr: 'Kendinizi test edin fuck-claude.vercel.app',
+    vi: 'Kiểm tra của bạn tại fuck-claude.vercel.app',
+    th: 'ตรวจสอบของคุณที่ fuck-claude.vercel.app',
+    id: 'Periksa milik Anda di fuck-claude.vercel.app',
+  };
   ctx.fillStyle = C.muted2;
   ctx.font = `500 26px ${SANS}`;
   ctx.textAlign = 'center';
   ctx.fillText(
-    d.lang === 'zh' ? '在 fuck-claude.vercel.app 测测你的' : 'Measure yours at fuck-claude.vercel.app',
+    footerText[d.lang] || footerText.en,
     SIZE / 2,
     SIZE - 68,
   );

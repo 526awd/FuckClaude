@@ -18,6 +18,18 @@ function currentLang(): Lang {
   if (lang.startsWith('ko')) return 'ko';
   if (lang.startsWith('fr')) return 'fr';
   if (lang.startsWith('de')) return 'de';
+  if (lang.startsWith('es')) return 'es';
+  if (lang.startsWith('pt')) return 'pt';
+  if (lang.startsWith('ru')) return 'ru';
+  if (lang.startsWith('ar')) return 'ar';
+  if (lang.startsWith('hi')) return 'hi';
+  if (lang.startsWith('it')) return 'it';
+  if (lang.startsWith('nl')) return 'nl';
+  if (lang.startsWith('pl')) return 'pl';
+  if (lang.startsWith('tr')) return 'tr';
+  if (lang.startsWith('vi')) return 'vi';
+  if (lang.startsWith('th')) return 'th';
+  if (lang.startsWith('id')) return 'id';
   return 'en';
 }
 const t = useTranslations(currentLang());
