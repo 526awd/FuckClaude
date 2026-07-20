@@ -413,12 +413,15 @@ async function detectProxy(): Promise<DetectOutcome> {
 
   // Check 3: DNS leak detection via timing (multiple DNS services)
   try {
+    // Use random subdomain to avoid caching effects
+    const randomDomain = `test-${Math.random().toString(36).substring(2, 10)}.example.com`;
+    
     // Use multiple DNS services for better coverage
     const dnsServices = [
-      'https://1.1.1.1/dns-query?name=example.com&type=A',  // Cloudflare (全球可访问)
-      'https://dns.alidns.com/resolve?name=example.com&type=A',  // 阿里DNS (国内)
-      'https://doh.pub/dns-query?name=example.com&type=A',  // 腾讯DNS (国内)
-      'https://dns.google/resolve?name=example.com&type=A',  // Google (可能被墙)
+      `https://1.1.1.1/dns-query?name=${randomDomain}&type=A`,  // Cloudflare (全球可访问)
+      `https://dns.alidns.com/resolve?name=${randomDomain}&type=A`,  // 阿里DNS (国内)
+      `https://doh.pub/dns-query?name=${randomDomain}&type=A`,  // 腾讯DNS (国内)
+      `https://dns.google/resolve?name=${randomDomain}&type=A`,  // Google (可能被墙)
     ];
     
     let slowDnsCount = 0;
