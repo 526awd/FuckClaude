@@ -524,6 +524,22 @@ const jsonLd = {
           opacity: 0.55;
         }
       }
+      .credit--blue {
+        color: #1a73e8;
+        border: 1px solid color-mix(in srgb, #1a73e8 35%, var(--border));
+        background: color-mix(in srgb, #1a73e8 5%, var(--surface));
+      }
+      .credit--blue .credit__spark {
+        background: #1a73e8;
+      }
+      .credit--bw {
+        color: var(--text);
+        border: 1px solid var(--text);
+        background: var(--surface);
+      }
+      .credit--bw .credit__spark {
+        background: var(--text);
+      }
 
       /* ---------- score panel ---------- */
       .panel {
