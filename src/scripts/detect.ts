@@ -5,28 +5,20 @@
  * Everything runs locally in the browser.
  */
 import { SIGNALS, riskBand, signalVerdict, type SignalDef, type RiskBand } from '../config/signals';
-import { CN_MODELS } from '../config/cn-models';
 import { useTranslations, type Lang } from '../i18n/ui';
 import { renderResultCard, type CardHit } from './share-card';
-
-/**
- * High-risk consolation links — "But you still have Kimi Code, DeepSeek and GLM".
- * Kimi leads and is branded "Kimi Code"; URLs come from CN_MODELS (utm-tagged).
- */
-const BAND_HIGH_LINKS = [
-  { id: 'kimi', label: 'Kimi Code' },
-  { id: 'deepseek', label: 'DeepSeek' },
-  { id: 'glm', label: 'GLM' },
-].flatMap((link) => {
-  const model = CN_MODELS.find((m) => m.id === link.id);
-  return model ? [{ ...link, url: model.url }] : [];
-});
 
 const SCAN_STEP_MS = 460;
 const SETTLE_MS = 150;
 
 function currentLang(): Lang {
-  return document.documentElement.lang.toLowerCase().startsWith('zh') ? 'zh' : 'en';
+  const lang = document.documentElement.lang.toLowerCase();
+  if (lang.startsWith('zh')) return 'zh';
+  if (lang.startsWith('ja')) return 'ja';
+  if (lang.startsWith('ko')) return 'ko';
+  if (lang.startsWith('fr')) return 'fr';
+  if (lang.startsWith('de')) return 'de';
+  return 'en';
 }
 const t = useTranslations(currentLang());
 
@@ -108,24 +100,6 @@ function finalize(total: number, hits: Hit[]) {
   const desc = q('#risk-desc');
   if (desc) {
     desc.textContent = t(`band.${band}.desc`);
-    // High risk gets a consolation plug:
-    // "But you still have <Kimi Code>, <DeepSeek> and <GLM>".
-    if (band === 'high') {
-      desc.append(` ${t('band.high.extra')} `);
-      BAND_HIGH_LINKS.forEach((link, i) => {
-        if (i > 0) {
-          desc.append(i === BAND_HIGH_LINKS.length - 1 ? t('band.high.extraSepLast') : t('band.high.extraSep'));
-        }
-        const a = document.createElement('a');
-        a.href = link.url;
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer';
-        a.textContent = link.label;
-        a.setAttribute('data-ga-event', 'cn_model_click');
-        a.setAttribute('data-ga-id', `${link.id}-band-high`);
-        desc.appendChild(a);
-      });
-    }
   }
 
   const titleEl = q('#result-title');

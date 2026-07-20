@@ -9,15 +9,20 @@ const { lang } = Astro.props;
 
 <div class="lang-toggle" role="group" aria-label="Language / 语言">
   {
-    (Object.entries(languages) as [Lang, string][]).map(([code, label]) => (
-      <a
-        href={localePath(code)}
-        hreflang={code === 'zh' ? 'zh-CN' : 'en'}
-        data-lang={code}
-        aria-current={code === lang ? 'page' : undefined}
-      >
-        {label}
-      </a>
-    ))
+    (Object.entries(languages) as [Lang, string][]).map(([code, label]) => {
+      const hreflang: Record<string, string> = {
+        en: 'en', zh: 'zh-CN', ja: 'ja-JP', ko: 'ko-KR', fr: 'fr-FR', de: 'de-DE',
+      };
+      return (
+        <a
+          href={localePath(code)}
+          hreflang={hreflang[code] || code}
+          data-lang={code}
+          aria-current={code === lang ? 'page' : undefined}
+        >
+          {label}
+        </a>
+      );
+    })
   }
 </div>

@@ -3,9 +3,10 @@
  *
  * The in-browser scan reads OS-level signals (timezone, fonts, Intl locale, …)
  * that a plain HTTP request can't see. This endpoint instead estimates the risk
- * from what Vercel exposes about the request:
- *   - `x-vercel-ip-timezone` — IANA timezone of the requester's IP (the big one)
- *   - `x-vercel-ip-country`   — country of the requester's IP
+ * from what the deployment platform exposes about the request:
+ *   - Cloudflare: `request.cf` via `@astrojs/cloudflare` (timezone, country)
+ *   - Vercel: `x-vercel-ip-timezone` and `x-vercel-ip-country` headers
+ *   - Fallback: `cf-ipcountry` header
  *   - `accept-language`       — browser/UA language preferences
  *   - `user-agent`            — OS/vendor guess for the emoji signal
  *
@@ -15,14 +16,13 @@
  * consistent.
  *
  * Response format:
- *   - default (curl, browser, …)                      → pretty plain-text report
+ *   - default (curl, browser, …)                                      → pretty plain-text report
  *       · terminals get ANSI colour, browsers get plain text (`?color=0/1` forces)
  *   - `Accept: application/json` (or `?format=json`)  → JSON
  *   - `?format=text` forces the report even for JSON clients
  *   - `?lang=zh` / `?lang=en` (default: Accept-Language) → localised output
  *
- * Needs the Vercel adapter + on-demand rendering; geo headers are only present
- * on a real Vercel deployment (absent locally / on other hosts).
+ * Needs on-demand rendering (Cloudflare Pages Functions or Vercel Functions).
  */
 import type { APIRoute } from 'astro';
 import {
@@ -134,10 +134,10 @@ function wantsColor(url: URL, req: Request): boolean {
   return !/mozilla|chrome\/|safari\/|firefox\/|edg\//.test(ua);
 }
 
-function analyze(req: Request, lang: Lang): Analysis {
+function analyze(req: Request, lang: Lang, geo?: { timezone?: string; country?: string }): Analysis {
   const t = useTranslations(lang);
-  const tz = req.headers.get('x-vercel-ip-timezone') || '';
-  const country = req.headers.get('x-vercel-ip-country') || '';
+  const tz = geo?.timezone || req.headers.get('x-vercel-ip-timezone') || '';
+  const country = geo?.country || req.headers.get('x-vercel-ip-country') || req.headers.get('cf-ipcountry') || '';
   const acceptLang = parseAcceptLanguage(req.headers.get('accept-language') || '');
   const ua = req.headers.get('user-agent') || '';
 
@@ -311,10 +311,12 @@ function textBody(a: Analysis, lang: Lang, color: boolean): string {
   return out.join('\n');
 }
 
-export const GET: APIRoute = ({ request, url }) => {
+export const GET: APIRoute = ({ request, url, locals }) => {
   const acceptLang = parseAcceptLanguage(request.headers.get('accept-language') || '');
   const lang = pickLang(url, acceptLang);
-  const analysis = analyze(request, lang);
+  const cf = (locals as Record<string, unknown>).cfContext as Record<string, unknown> | undefined;
+  const geo = cf ? { timezone: cf.timezone as string, country: cf.country as string } : undefined;
+  const analysis = analyze(request, lang, geo);
   const vary = 'Accept, Accept-Language, User-Agent';
 
   if (!wantsJson(url, request)) {

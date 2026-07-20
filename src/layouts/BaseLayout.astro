@@ -11,17 +11,28 @@ const t = useTranslations(lang);
 
 const site = Astro.site ?? new URL('https://fuck-claude.vercel.app');
 const canonical = new URL(path, site).href;
-const enUrl = new URL('/', site).href;
-const zhUrl = new URL('/zh/', site).href;
 const ogImage = new URL('/og.png', site).href;
 
-const htmlLang = lang === 'zh' ? 'zh-CN' : 'en';
-const ogLocale = lang === 'zh' ? 'zh_CN' : 'en_US';
+const LANG_HREFLANG: Record<string, string> = {
+  en: 'en', zh: 'zh-CN', ja: 'ja-JP', ko: 'ko-KR', fr: 'fr-FR', de: 'de-DE',
+};
+const langUrls = Object.fromEntries(
+  Object.keys(LANG_HREFLANG).map((l) => [l, new URL(l === 'en' ? '/' : `/${l}/`, site).href]),
+);
+
+const HTML_LANG: Record<string, string> = {
+  en: 'en', zh: 'zh-CN', ja: 'ja-JP', ko: 'ko-KR', fr: 'fr-FR', de: 'de-DE',
+};
+const OG_LOCALE: Record<string, string> = {
+  en: 'en_US', zh: 'zh_CN', ja: 'ja_JP', ko: 'ko_KR', fr: 'fr_FR', de: 'de_DE',
+};
+const htmlLang = HTML_LANG[lang] || 'en';
+const ogLocale = OG_LOCALE[lang] || 'en_US';
 
 const title = t('meta.title');
 const description = t('meta.description');
 
-const GA_ID = 'G-S19V74WZZJ';
+const GA_ID = 'G-4NWWT9Z2JT';
 
 const faq = [1, 2, 3, 4].map((i) => ({
   '@type': 'Question',
@@ -76,18 +87,19 @@ const jsonLd = {
           var p = location.pathname;
           if (p !== '/' && p !== '/index.html') return;
           var stored = null;
-          try {
-            stored = localStorage.getItem('fc-lang');
-          } catch (e) {}
-          var wantZh;
-          if (stored === 'zh' || stored === 'en') {
-            wantZh = stored === 'zh';
-          } else {
-            var primary =
-              (navigator.languages && navigator.languages[0]) || navigator.language || '';
-            wantZh = /^zh/i.test(primary);
+          try { stored = localStorage.getItem('fc-lang'); } catch (e) {}
+          if (stored) {
+            if (stored !== 'en') location.replace('/' + stored + '/');
+            return;
           }
-          if (wantZh) location.replace('/zh/');
+          var primary = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+          var langMap = { zh: 'zh', ja: 'ja', ko: 'ko', fr: 'fr', de: 'de' };
+          for (var prefix in langMap) {
+            if (primary.toLowerCase().startsWith(prefix)) {
+              location.replace('/' + langMap[prefix] + '/');
+              return;
+            }
+          }
         } catch (e) {}
       })();
     </script>
@@ -101,9 +113,12 @@ const jsonLd = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
 
-    <link rel="alternate" hreflang="en" href={enUrl} />
-    <link rel="alternate" hreflang="zh-CN" href={zhUrl} />
-    <link rel="alternate" hreflang="x-default" href={enUrl} />
+    {
+      Object.entries(LANG_HREFLANG).map(([code, hreflang]) => (
+        <link rel="alternate" hreflang={hreflang} href={langUrls[code]} />
+      ))
+    }
+    <link rel="alternate" hreflang="x-default" href={langUrls['en']} />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={t('nav.title')} />
