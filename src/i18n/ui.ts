@@ -116,6 +116,8 @@ export const ui = {
     'footer.license':
       'Open sourced under the MIT License — redistributions must keep the original project notice.',
     'footer.repo': 'Original project',
+    'footer.originalAuthor': 'Original author:',
+    'footer.modifiedBy': 'Modified by:',
 
     'share.label': 'Share your result',
     'share.native': 'Share',
@@ -231,6 +233,8 @@ export const ui = {
     'footer.disclaimer': '本工具仅供参考,基于公开逆向分析,不构成任何官方结论或建议。',
     'footer.license': '基于 MIT 协议开源 —— 二次发布请保留原项目署名。',
     'footer.repo': 'GitHub 原项目',
+    'footer.originalAuthor': '原作者：',
+    'footer.modifiedBy': '修改者：',
 
     'share.label': '分享你的结果',
     'share.native': '分享',
@@ -347,6 +351,8 @@ export const ui = {
     'footer.disclaimer': '参考用です。公開リバースエンジニアリングレポートに基づき、公式見解や助言ではありません。',
     'footer.license': 'MITライセンスで公開 — 再配布時は元のプロジェクト表示を保持してください。',
     'footer.repo': '元のプロジェクト',
+    'footer.originalAuthor': '原作者：',
+    'footer.modifiedBy': '修改者：',
 
     'share.label': '結果をシェア',
     'share.native': 'シェア',
@@ -464,6 +470,8 @@ export const ui = {
     'footer.disclaimer': '참고용입니다. 공개 리버스 엔지니어링 보고서에 기반하며 공식 진술이나 조언이 아닙니다.',
     'footer.license': 'MIT 라이선스로 오픈 소스 — 재배포 시 원본 프로젝트 표시를 유지해야 합니다.',
     'footer.repo': '원본 프로젝트',
+    'footer.originalAuthor': '원저자：',
+    'footer.modifiedBy': '수정자：',
 
     'share.label': '결과 공유',
     'share.native': '공유',
@@ -583,6 +591,8 @@ export const ui = {
     'footer.disclaimer': 'Pour référence uniquement, basé sur des rapports de rétro-ingénierie publique. Ni déclaration officielle ni conseil.',
     'footer.license': 'Distribué sous licence MIT — les redistributions doivent conserver la notice du projet original.',
     'footer.repo': 'Projet original',
+    'footer.originalAuthor': 'Auteur original :',
+    'footer.modifiedBy': 'Modifié par :',
 
     'share.label': 'Partagez votre résultat',
     'share.native': 'Partager',
@@ -702,6 +712,8 @@ export const ui = {
     'footer.disclaimer': 'Nur zu Referenzzwecken, basierend auf öffentlichen Reverse-Engineering-Berichten. Keine offizielle Stellungnahme oder Beratung.',
     'footer.license': 'Unter der MIT-Lizenz veröffentlicht — Weiterverbreitungen müssen den ursprünglichen Projektvermerk enthalten.',
     'footer.repo': 'Original-Projekt',
+    'footer.originalAuthor': 'Originalautor:',
+    'footer.modifiedBy': 'Geändert von:',
 
     'share.label': 'Teilen Sie Ihr Ergebnis',
     'share.native': 'Teilen',
@@ -813,6 +825,8 @@ export const ui = {
     'footer.license':
       'Distribuido bajo licencia MIT — las redistribuciones deben mantener el aviso del proyecto original.',
     'footer.repo': 'Proyecto original',
+    'footer.originalAuthor': 'Autor original:',
+    'footer.modifiedBy': 'Modificado por:',
     'share.label': 'Comparte tu resultado',
     'share.native': 'Compartir',
     'share.copy': 'Copiar enlace',
@@ -921,6 +935,8 @@ export const ui = {
     'footer.license':
       'Distribuído sob licença MIT — redistribuições devem manter o aviso do projeto original.',
     'footer.repo': 'Projeto original',
+    'footer.originalAuthor': 'Autor original:',
+    'footer.modifiedBy': 'Modificado por:',
     'share.label': 'Compartilhe seu resultado',
     'share.native': 'Compartilhar',
     'share.copy': 'Copiar link',
@@ -1029,6 +1045,8 @@ export const ui = {
     'footer.license':
       'Распространяется под лицензией MIT — при перераспределении необходимо сохранить уведомление об оригинальном проекте.',
     'footer.repo': 'Оригинальный проект',
+    'footer.originalAuthor': 'Оригинальный автор:',
+    'footer.modifiedBy': 'Изменено:',
     'share.label': 'Поделитесь результатом',
     'share.native': 'Поделиться',
     'share.copy': 'Копировать ссылку',
@@ -1137,6 +1155,8 @@ export const ui = {
     'footer.license':
       'مرخّص تحت رخصة MIT — يجب على إعادة التوزيع الحفاظ على إشعار المشروع الأصلي.',
     'footer.repo': 'المشروع الأصلي',
+    'footer.originalAuthor': 'المؤلف الأصلي:',
+    'footer.modifiedBy': 'تم التعديل بواسطة:',
     'share.label': 'شارك نتيجتك',
     'share.native': 'مشاركة',
     'share.copy': 'نسخ الرابط',
@@ -1245,6 +1265,8 @@ export const ui = {
     'footer.license':
       'MIT लाइसेंस के तहत ओपन सोर्स — पुनर्वितरण को मूल परियोजना सूचना बनाए रखनी होगी।',
     'footer.repo': 'मूल परियोजना',
+    'footer.originalAuthor': 'मूल लेखक:',
+    'footer.modifiedBy': 'द्वारा संशोधित:',
     'share.label': 'अपना परिणाम साझा करें',
     'share.native': 'साझा करें',
     'share.copy': 'लिंक कॉपी करें',
@@ -1353,6 +1375,8 @@ export const ui = {
     'footer.license':
       'Distribuito sotto licenza MIT — le ridistribuzioni devono mantenere l\'avviso del progetto originale.',
     'footer.repo': 'Progetto originale',
+    'footer.originalAuthor': 'Autore originale:',
+    'footer.modifiedBy': 'Modificato da:',
     'share.label': 'Condividi il tuo risultato',
     'share.native': 'Condividi',
     'share.copy': 'Copia link',
@@ -1461,6 +1485,8 @@ export const ui = {
     'footer.license':
       'Gepubliceerd onder de MIT-licentie — herdistributies moeten het originele projectbericht behouden.',
     'footer.repo': 'Origineel project',
+    'footer.originalAuthor': 'Originele auteur:',
+    'footer.modifiedBy': 'Gewijzigd door:',
     'share.label': 'Deel je resultaat',
     'share.native': 'Delen',
     'share.copy': 'Link kopiëren',
@@ -1569,6 +1595,8 @@ export const ui = {
     'footer.license':
       'Dystrybuowane na licencji MIT — redystrybucje muszą zachować oryginalne oświadczenie projektu.',
     'footer.repo': 'Oryginalny projekt',
+    'footer.originalAuthor': 'Oryginalny autor:',
+    'footer.modifiedBy': 'Zmodyfikowane przez:',
     'share.label': 'Udostępnij swój wynik',
     'share.native': 'Udostępnij',
     'share.copy': 'Kopiuj link',
@@ -1677,6 +1705,8 @@ export const ui = {
     'footer.license':
       'MIT Lisansı altında yayınlanmıştır — yeniden dağıtımlar orijinal proje bildirimini korumalıdır.',
     'footer.repo': 'Orijinal proje',
+    'footer.originalAuthor': 'Orijinal yazar:',
+    'footer.modifiedBy': 'Değiştiren:',
     'share.label': 'Sonucunuzu paylaşın',
     'share.native': 'Paylaş',
     'share.copy': 'Bağlantıyı kopyala',
@@ -1785,6 +1815,8 @@ export const ui = {
     'footer.license':
       'Phân phối theo giấy phép MIT — phân phối lại phải giữ thông báo dự án gốc.',
     'footer.repo': 'Dự án gốc',
+    'footer.originalAuthor': 'Tác giả gốc:',
+    'footer.modifiedBy': 'Sửa đổi bởi:',
     'share.label': 'Chia sẻ kết quả của bạn',
     'share.native': 'Chia sẻ',
     'share.copy': 'Sao chép liên kết',
@@ -1893,6 +1925,8 @@ export const ui = {
     'footer.license':
       'เผยแพร่ภายใต้สัญญาอนุญาต MIT — การแจกจ่ายซ้ำต้องคงการแจ้งเตือนโปรเจกต์เดิมไว้',
     'footer.repo': 'โปรเจกต์เดิม',
+    'footer.originalAuthor': 'ผู้เขียนต้นฉบับ:',
+    'footer.modifiedBy': 'แก้ไขโดย:',
     'share.label': 'แชร์ผลลัพธ์ของคุณ',
     'share.native': 'แชร์',
     'share.copy': 'คัดลอกลิงก์',
@@ -2001,6 +2035,8 @@ export const ui = {
     'footer.license':
       'Didistribusikan di bawah lisensi MIT — distribusi ulang harus mempertahankan pemberitahuan proyek asli.',
     'footer.repo': 'Proyek asli',
+    'footer.originalAuthor': 'Penulis asli:',
+    'footer.modifiedBy': 'Dimodifikasi oleh:',
     'share.label': 'Bagikan hasil Anda',
     'share.native': 'Bagikan',
     'share.copy': 'Salin tautan',
