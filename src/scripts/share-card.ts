@@ -131,7 +131,7 @@ export async function renderResultCard(d: CardData): Promise<Blob | null> {
   ctx.textAlign = 'right';
   ctx.font = `500 24px ${SANS}`;
   ctx.fillStyle = C.muted2;
-  ctx.fillText('fuck-claude.vercel.app', SIZE - 80, headY + 1);
+  ctx.fillText('fuckkld.https114514191810lp.edu.eu.org', SIZE - 80, headY + 1);
 
   // Title.
   ctx.textAlign = 'center';
@@ -212,24 +212,24 @@ export async function renderResultCard(d: CardData): Promise<Blob | null> {
 
   // Footer.
   const footerText: Record<string, string> = {
-    en: 'Measure yours at fuck-claude.vercel.app',
-    zh: '在 fuck-claude.vercel.app 测测你的',
-    ja: 'fuck-claude.vercel.app で自分をチェック',
-    ko: 'fuck-claude.vercel.app 에서 확인하세요',
-    fr: 'Testez le vôtre sur fuck-claude.vercel.app',
-    de: 'Testen Sie es auf fuck-claude.vercel.app',
-    es: 'Prueba el tuyo en fuck-claude.vercel.app',
-    pt: 'Teste o seu em fuck-claude.vercel.app',
-    ru: 'Проверьте на fuck-claude.vercel.app',
-    ar: 'تحقق من 결과ك على fuck-claude.vercel.app',
-    hi: 'अपना परीक्षण करें fuck-claude.vercel.app पर',
-    it: 'Prova il tuo su fuck-claude.vercel.app',
-    nl: 'Test die van jou op fuck-claude.vercel.app',
-    pl: 'Sprawdź swój na fuck-claude.vercel.app',
-    tr: 'Kendinizi test edin fuck-claude.vercel.app',
-    vi: 'Kiểm tra của bạn tại fuck-claude.vercel.app',
-    th: 'ตรวจสอบของคุณที่ fuck-claude.vercel.app',
-    id: 'Periksa milik Anda di fuck-claude.vercel.app',
+    en: 'Measure yours at fuckkld.https114514191810lp.edu.eu.org',
+    zh: '在 fuckkld.https114514191810lp.edu.eu.org 测测你的',
+    ja: 'fuckkld.https114514191810lp.edu.eu.org で自分をチェック',
+    ko: 'fuckkld.https114514191810lp.edu.eu.org 에서 확인하세요',
+    fr: 'Testez le vôtre sur fuckkld.https114514191810lp.edu.eu.org',
+    de: 'Testen Sie es auf fuckkld.https114514191810lp.edu.eu.org',
+    es: 'Prueba el tuyo en fuckkld.https114514191810lp.edu.eu.org',
+    pt: 'Teste o seu em fuckkld.https114514191810lp.edu.eu.org',
+    ru: 'Проверьте на fuckkld.https114514191810lp.edu.eu.org',
+    ar: 'تحقق من 결과ك على fuckkld.https114514191810lp.edu.eu.org',
+    hi: 'अपना परीक्षण करें fuckkld.https114514191810lp.edu.eu.org पर',
+    it: 'Prova il tuo su fuckkld.https114514191810lp.edu.eu.org',
+    nl: 'Test die van jou op fuckkld.https114514191810lp.edu.eu.org',
+    pl: 'Sprawdź swój na fuckkld.https114514191810lp.edu.eu.org',
+    tr: 'Kendinizi test edin fuckkld.https114514191810lp.edu.eu.org',
+    vi: 'Kiểm tra của bạn tại fuckkld.https114514191810lp.edu.eu.org',
+    th: 'ตรวจสอบของคุณที่ fuckkld.https114514191810lp.edu.eu.org',
+    id: 'Periksa milik Anda di fuckkld.https114514191810lp.edu.eu.org',
   };
   ctx.fillStyle = C.muted2;
   ctx.font = `500 26px ${SANS}`;
