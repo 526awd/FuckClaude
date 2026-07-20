@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://fuck-claude.vercel.app/sitemap-index.xml
+Sitemap: https://fuckkld.https114514191810lp.edu.eu.org/sitemap-index.xml

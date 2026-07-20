@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
-  site: 'https://fuck-claude.vercel.app',
+  site: 'https://fuckkld.https114514191810lp.edu.eu.org',
   output: 'static',
   adapter: cloudflare({ prerenderEnvironment: 'node' }),
   i18n: {
