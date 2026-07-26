@@ -4,7 +4,6 @@ import { SIGNALS } from '../config/signals';
 import LangToggle from './LangToggle.astro';
 import ScoreRing from './ScoreRing.astro';
 import Mascot from './Mascot.astro';
-import SocialLinks from './SocialLinks.astro';
 import Footer from './Footer.astro';
 
 interface Props {
@@ -40,7 +39,6 @@ const apiExamples = [
     </a>
     <nav class="nav__actions">
       <LangToggle lang={lang} />
-      <SocialLinks lang={lang} />
       <a
         class="icon-link"
         href="https://github.com/LinXiaoTao/FuckClaude"
