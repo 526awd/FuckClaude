@@ -7,6 +7,9 @@ export default defineConfig({
   site: 'https://fuckkld.https114514191810lp.edu.eu.org',
   output: 'static',
   adapter: cloudflare({ prerenderEnvironment: 'node' }),
+  build: {
+    assets: 'assets',
+  },
   i18n: {
     locales: ['en', 'zh', 'ja', 'ko', 'fr', 'de', 'es', 'pt', 'ru', 'ar', 'hi', 'it', 'nl', 'pl', 'tr', 'vi', 'th', 'id'],
     defaultLocale: 'en',
