@@ -16,7 +16,7 @@ export type SignalId =
   | 'cnBrowser'
   | 'deviceVendor'
   | 'emoji'
-  | 'proxy';
+  | 'dnsLeak';
 
 export interface DetectOutcome {
   /** Human-readable detected value. */
@@ -358,29 +358,49 @@ function detectEmoji(): DetectOutcome {
 }
 
 /**
- * Detect browser proxy/VPN usage through WebRTC leak detection and connection analysis.
- * This is a heuristic-based approach that checks for common proxy indicators.
+ * Detect DNS leaks through WebRTC IP exposure and DNS-over-HTTPS consistency checks.
+ *
+ * A DNS leak occurs when DNS queries bypass a VPN/proxy tunnel and resolve
+ * through the local ISP instead, revealing the user's true network location.
+ * This function uses two complementary approaches:
+ *   1. WebRTC ICE candidates — if a real IP address shows up in ICE offers
+ *      while behind a proxy/VPN, it is a classic DNS/network leak.
+ *   2. DNS-over-HTTPS resolution timing — resolving a unique domain through
+ *      multiple DNS providers and comparing response times can reveal whether
+ *      queries take unexpected paths (e.g. some providers blocked by a VPN,
+ *      others resolving locally).
  */
-async function detectProxy(): Promise<DetectOutcome> {
+async function detectDnsLeak(): Promise<DetectOutcome> {
   const indicators: string[] = [];
   let score = 0;
 
-  // Check 1: WebRTC local IPs (can leak real IP behind proxy)
+  // Check 1: WebRTC local IPs (can leak real IP behind proxy/VPN).
   try {
+    // Detect private/internal IP ranges
+    const isPrivateIp = (ip: string) =>
+      /^(10\.\d{1,3}\.\d{1,3}\.\d{1,3}|172\.(1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|127\.\d{1,3}\.\d{1,3}\.\d{1,3})$/.test(ip);
+
     const pc = new RTCPeerConnection({ iceServers: [] });
+    let publicIpFound = false;
+
     const promise = new Promise<void>((resolve) => {
       const timeout = setTimeout(() => {
         pc.close();
         resolve();
-      }, 2000);
+      }, 3000);
       pc.onicecandidate = (event) => {
-        if (event.candidate) {
-          const candidate = event.candidate.candidate;
-          const ipMatch = candidate.match(/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/);
-          if (ipMatch) {
-            indicators.push('WebRTC IP leak detected');
-            score = Math.max(score, 0.3);
-          }
+        if (!event.candidate) return;
+        const candidate = event.candidate.candidate;
+        const ipMatch = candidate.match(/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/);
+        if (!ipMatch) return;
+        const ip = ipMatch[1];
+        if (!isPrivateIp(ip)) {
+          publicIpFound = true;
+          indicators.push(`WebRTC public IP leak (${ip})`);
+          score = Math.max(score, 0.6);
+        } else {
+          indicators.push(`WebRTC local IP visible (${ip})`);
+          score = Math.max(score, 0.2);
         }
         clearTimeout(timeout);
         pc.close();
@@ -391,81 +411,63 @@ async function detectProxy(): Promise<DetectOutcome> {
     pc.createOffer().then((offer) => pc.setLocalDescription(offer));
     await promise;
   } catch {
-    // WebRTC not available or blocked
+    // WebRTC not available or blocked — cannot detect leaks this way.
   }
 
-  // Check 2: Connection type hints
+  // Check 2: DNS-over-HTTPS resolution consistency across multiple providers.
+  // A mismatch in availability or extreme timing differences between global
+  // and China-local DNS providers suggests DNS queries are leaking.
   try {
-    const conn = (navigator as Navigator & { connection?: { type?: string; effectiveType?: string; rtt?: number } }).connection;
-    if (conn) {
-      if (conn.type === 'vpn') {
-        indicators.push('VPN connection type');
-        score = Math.max(score, 0.8);
-      }
-      if (conn.rtt && conn.rtt > 300) {
-        indicators.push(`High latency (${conn.rtt}ms)`);
-        score = Math.max(score, 0.2);
-      }
-    }
-  } catch {
-    // Connection API not available
-  }
+    const randomDomain = `dnsleak-${Math.random().toString(36).substring(2, 10)}.edns.ip-api.com`;
 
-  // Check 3: DNS leak detection via timing (multiple DNS services)
-  try {
-    // Use random subdomain to avoid caching effects
-    const randomDomain = `test-${Math.random().toString(36).substring(2, 10)}.example.com`;
-    
-    // Use multiple DNS services for better coverage
-    const dnsServices = [
-      `https://1.1.1.1/dns-query?name=${randomDomain}&type=A`,  // Cloudflare (全球可访问)
-      `https://dns.alidns.com/resolve?name=${randomDomain}&type=A`,  // 阿里DNS (国内)
-      `https://doh.pub/dns-query?name=${randomDomain}&type=A`,  // 腾讯DNS (国内)
-      `https://dns.google/resolve?name=${randomDomain}&type=A`,  // Google (可能被墙)
+    interface DnsResult { provider: string; ok: boolean; elapsed: number }
+    const results: DnsResult[] = [];
+
+    const providers = [
+      { url: `https://1.1.1.1/dns-query?name=${randomDomain}&type=A`, name: 'Cloudflare' },
+      { url: `https://dns.google/resolve?name=${randomDomain}&type=A`, name: 'Google' },
+      { url: `https://dns.alidns.com/resolve?name=${randomDomain}&type=A`, name: 'AliDNS' },
+      { url: `https://doh.pub/dns-query?name=${randomDomain}&type=A`, name: 'DNSPod' },
     ];
-    
-    let slowDnsCount = 0;
-    let totalDnsTests = 0;
-    
-    for (const dnsUrl of dnsServices) {
+
+    for (const p of providers) {
       try {
         const start = performance.now();
-        await fetch(dnsUrl, { mode: 'no-cors', signal: AbortSignal.timeout(2000) });
-        const elapsed = performance.now() - start;
-        totalDnsTests++;
-        if (elapsed > 800) {
-          slowDnsCount++;
-        }
+        await fetch(p.url, { mode: 'no-cors', signal: AbortSignal.timeout(3000) });
+        results.push({ provider: p.name, ok: true, elapsed: performance.now() - start });
       } catch {
-        // DNS service failed (可能被墙或超时)
-        totalDnsTests++;
-        slowDnsCount++;
+        results.push({ provider: p.name, ok: false, elapsed: 0 });
       }
     }
-    
-    // 如果大部分DNS服务都慢或失败，可能经过代理
-    if (totalDnsTests > 0 && slowDnsCount / totalDnsTests > 0.5) {
-      indicators.push('Slow/unreachable DNS services');
-      score = Math.max(score, 0.2);
+
+    const globalProviders = results.filter((r) => r.provider === 'Cloudflare' || r.provider === 'Google');
+    const cnProviders = results.filter((r) => r.provider === 'AliDNS' || r.provider === 'DNSPod');
+
+    const globalOk = globalProviders.some((r) => r.ok);
+    const cnOk = cnProviders.some((r) => r.ok);
+    const globalAvg = globalProviders.filter((r) => r.ok).reduce((s, r) => s + r.elapsed, 0) / (globalProviders.filter((r) => r.ok).length || 1);
+    const cnAvg = cnProviders.filter((r) => r.ok).reduce((s, r) => s + r.elapsed, 0) / (cnProviders.filter((r) => r.ok).length || 1);
+
+    // Global DNS reachable but China DNS slow/blocked → possible leak via China ISP
+    if (globalOk && !cnOk) {
+      indicators.push('Global DNS reachable; China DNS blocked');
+      score = Math.max(score, 0.4);
+    }
+    // China DNS reachable but global DNS blocked → typical China network
+    if (cnOk && !globalOk) {
+      indicators.push('China DNS reachable; global DNS blocked');
+      score = Math.max(score, 0.3);
+    }
+    // Both reachable but large timing gap → possible asymmetric routing
+    if (globalOk && cnOk && Math.abs(globalAvg - cnAvg) > 1000) {
+      indicators.push(`DNS timing anomaly (global:${Math.round(globalAvg)}ms / cn:${Math.round(cnAvg)}ms)`);
+      score = Math.max(score, 0.15);
     }
   } catch {
-    // DNS check failed
+    // DNS check failed.
   }
 
-  // Check 4: Proxy-specific headers (if accessible via Service Worker)
-  try {
-    const response = await fetch(window.location.href, { method: 'HEAD', cache: 'no-store' });
-    const via = response.headers.get('via');
-    const xForwardedFor = response.headers.get('x-forwarded-for');
-    if (via || xForwardedFor) {
-      indicators.push('Proxy headers detected');
-      score = Math.max(score, 0.6);
-    }
-  } catch {
-    // Cannot check headers
-  }
-
-  const raw = indicators.length > 0 ? indicators.slice(0, 2).join(', ') : 'no proxy detected';
+  const raw = indicators.length > 0 ? indicators.slice(0, 2).join('; ') : 'no DNS leak detected';
   return { raw, score: Math.min(1, score) };
 }
 
@@ -487,15 +489,15 @@ const ICON = {
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h16M4 16h16"/><circle cx="9" cy="8" r="2.2"/><circle cx="15" cy="16" r="2.2"/></svg>',
   smile:
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5s1.4 2 3.5 2 3.5-2 3.5-2"/><path d="M9 9.5h.01M15 9.5h.01"/></svg>',
-  proxy:
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>',
+  dnsLeak:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/><circle cx="12" cy="12" r="1"/></svg>',
 };
 
 export const SIGNALS: SignalDef[] = [
   { id: 'timezone', weight: 22, claudeUsed: true, icon: ICON.clock, detect: detectTimezone },
   { id: 'language', weight: 18, icon: ICON.globe, detect: detectLanguage },
   { id: 'fonts', weight: 14, icon: ICON.type, detect: detectFonts },
-  { id: 'proxy', weight: 12, icon: ICON.proxy, detect: detectProxy },
+  { id: 'dnsLeak', weight: 12, icon: ICON.dnsLeak, detect: detectDnsLeak },
   { id: 'vendorFonts', weight: 10, icon: ICON.typeBox, detect: detectVendorFonts },
   { id: 'cnBrowser', weight: 8, icon: ICON.compass, detect: detectCnBrowser },
   { id: 'deviceVendor', weight: 6, icon: ICON.phone, detect: detectDeviceVendor },

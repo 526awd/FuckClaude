@@ -29,7 +29,7 @@ Claude's real check. The other signals are general "Chinese environment" fingerp
 | System timezone | 22 | `Intl.DateTimeFormat().resolvedOptions().timeZone` vs. `Asia/Shanghai`, `Asia/Urumqi`, … (**used by Claude**) |
 | Browser language | 18 | `navigator.language(s)`; `zh-CN` / `zh-Hans` scores highest |
 | Installed Chinese fonts | 14 | Canvas width-probing for SC/TC fonts (Microsoft YaHei, PingFang SC, …) |
-| Proxy / VPN detection | 12 | WebRTC IP leak analysis, connection type inspection, DNS timing checks, proxy header detection |
+| DNS leak detection | 12 | WebRTC IP exposure analysis and DNS-over-HTTPS resolution consistency checks across global and China-local DNS providers |
 | Chinese vendor fonts | 10 | Canvas probing for vendor/software faces (MiSans, HarmonyOS Sans, OPPO Sans, WPS Founder FZ\*, …) — any hit is a strong tell |
 | Chinese browser / WebView | 8 | UA + UA-CH brands vs. WeChat, QQ, Quark, UC, Baidu, 360, Sogou, Douyin … |
 | Chinese-brand device | 6 | UA-CH high-entropy `model` (`navigator.userAgentData`) + UA vs. HarmonyOS, Huawei, Xiaomi, OPPO, vivo, … |
@@ -170,7 +170,7 @@ Claude Code 标记为中国用户。点击后会有逐项检测的扫描动效,�
 | 系统时区 | 22 | `Intl.DateTimeFormat().resolvedOptions().timeZone` 对比 `Asia/Shanghai`、`Asia/Urumqi` 等(**Claude 实际使用**) |
 | 浏览器语言 | 18 | `navigator.language(s)`;`zh-CN` / `zh-Hans` 得分最高 |
 | 已安装中文字体 | 14 | canvas 宽度探测简/繁体中文字体(微软雅黑、PingFang SC 等) |
-| 代理 / VPN 检测 | 12 | WebRTC IP 泄露分析、连接类型检测、DNS 延迟检测、代理头检测 |
+| DNS 泄露检测 | 12 | WebRTC IP 暴露分析和全球/国内 DNS 解析一致性对比 |
 | 国产厂商字体 | 10 | canvas 探测厂商 / 软件字体(MiSans、鸿蒙黑体、OPPO Sans、WPS 方正 FZ\* 等),命中即强信号 |
 | 国产浏览器 / WebView | 8 | UA + UA-CH brands 匹配微信、QQ、夸克、UC、百度、360、搜狗、抖音等 |
 | 国产品牌设备 | 6 | UA-CH 高熵 `model`(`navigator.userAgentData`)+ UA 匹配鸿蒙、华为、小米、OPPO、vivo 等 |

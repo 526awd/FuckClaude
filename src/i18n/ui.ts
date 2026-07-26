@@ -71,10 +71,10 @@ export const ui = {
     'signal.emoji.name': 'Emoji rendering style',
     'signal.emoji.desc':
       'OS vendor guessed from the user agent; a weak, loosely correlated signal.',
-    'signal.proxy.name': 'Proxy / VPN detection',
-    'signal.proxy.desc':
-      'Detects browser proxy or VPN usage through WebRTC leak detection, connection analysis, and proxy header checks.',
+    'signal.dnsLeak.name': 'DNS leak detection',
 
+    'signal.dnsLeak.desc':
+      'Detects DNS leaks through WebRTC IP exposure and DNS-over-HTTPS resolution consistency checks across global and China-local DNS providers.',
     'scan.detecting': 'Checking',
     'scan.ready': 'Ready to scan',
     'result.hitsTitle': 'Matched signals',
@@ -193,9 +193,9 @@ export const ui = {
     'signal.timezoneOffset.desc': 'getTimezoneOffset() 是否为 UTC+8。',
     'signal.emoji.name': 'Emoji 渲染风格',
     'signal.emoji.desc': '由 UA 推断操作系统厂商,弱相关信号。',
-    'signal.proxy.name': '代理 / VPN 检测',
-    'signal.proxy.desc':
-      '通过 WebRTC 泄漏检测、连接分析和代理头检查检测浏览器代理或 VPN 使用。',
+    'signal.dnsLeak.name': 'DNS 泄露检测',
+    'signal.dnsLeak.desc':
+      '通过 WebRTC IP 暴露检测和全球/国内 DNS 解析一致性对比,检测 DNS 泄露风险。',
 
     'scan.detecting': '检测中',
     'scan.ready': '待检测',
@@ -314,9 +314,9 @@ export const ui = {
     'signal.timezoneOffset.desc': 'getTimezoneOffset()がUTC+8と一致するか。',
     'signal.emoji.name': '絵文字レンダリングスタイル',
     'signal.emoji.desc': 'User-Agentから推測されたOSベンダー。弱い相関のシグナル。',
-    'signal.proxy.name': 'プロキシ / VPN 検出',
-    'signal.proxy.desc':
-      'WebRTCリーク検出、接続分析、プロキシヘッダーチェックによりブラウザプロキシまたはVPNの使用を検出。',
+    'signal.dnsLeak.name': 'DNS リーク検出',
+    'signal.dnsLeak.desc':
+      'WebRTC IP 露出と世界的/中国国内 DNS プロバイダ間の DNS-over-HTTPS 解決一貫性チェックを通じて DNS リークを検出します。',
 
     'scan.detecting': '検査中',
     'scan.ready': 'スキャン準備完了',
@@ -436,9 +436,9 @@ export const ui = {
     'signal.timezoneOffset.desc': 'getTimezoneOffset()이 UTC+8과 일치하는지 여부.',
     'signal.emoji.name': '이모지 렌더링 스타일',
     'signal.emoji.desc': 'User-Agent에서 추측한 OS 벤더. 약한 상관관계의 신호.',
-    'signal.proxy.name': '프록시 / VPN 감지',
-    'signal.proxy.desc':
-      'WebRTC 누수 감지, 연결 분석 및 프록시 헤더 검사를 통해 브라우저 프록시 또는 VPN 사용을 감지합니다.',
+    'signal.dnsLeak.name': 'DNS 누출 감지',
+    'signal.dnsLeak.desc':
+      'WebRTC IP 노출 및 글로벌/중국 DNS 제공자 간 DNS-over-HTTPS 해석 일관성 검사를 통해 DNS 누출을 감지합니다.',
 
     'scan.detecting': '확인 중',
     'scan.ready': '스캔 준비 완료',
@@ -560,9 +560,9 @@ export const ui = {
     'signal.emoji.name': 'Style de rendu des emojis',
     'signal.emoji.desc':
       'Fournisseur OS deviné à partir du user-agent ; un signal faible et peu corrélé.',
-    'signal.proxy.name': 'Détection Proxy / VPN',
-    'signal.proxy.desc':
-      'Détecte l\'utilisation de proxy navigateur ou VPN via la détection de fuite WebRTC, l\'analyse de connexion et les vérifications d\'en-têtes proxy.',
+    'signal.dnsLeak.name': 'Détection de fuite DNS',
+    'signal.dnsLeak.desc':
+      'Détecte les fuites DNS via l\'exposition IP WebRTC et les vérifications de cohérence de résolution DNS-over-HTTPS entre les fournisseurs DNS mondiaux et chinois.',
 
     'scan.detecting': 'Vérification',
     'scan.ready': 'Prêt à analyser',
@@ -684,9 +684,9 @@ export const ui = {
     'signal.emoji.name': 'Emoji-Darstellungsstil',
     'signal.emoji.desc':
       'OS-Anbieter vom User-Agent abgeleitet; ein schwaches, lose korreliertes Signal.',
-    'signal.proxy.name': 'Proxy / VPN Erkennung',
-    'signal.proxy.desc':
-      'Erkennt Browser-Proxy oder VPN-Nutzung durch WebRTC-Leckerkennung, Verbindungsanalyse und Proxy-Header-Prüfungen.',
+    'signal.dnsLeak.name': 'DNS-Leak-Erkennung',
+    'signal.dnsLeak.desc':
+      'Erkennt DNS-Lecks durch WebRTC-IP-Offenlegung und DNS-over-HTTPS-Auflösungskonsistenzprüfungen zwischen globalen und chinesischen DNS-Anbietern.',
 
     'scan.detecting': 'Prüfe',
     'scan.ready': 'Bereit zum Scannen',
@@ -805,9 +805,9 @@ export const ui = {
     'signal.emoji.name': 'Estilo de renderizado de emojis',
     'signal.emoji.desc':
       'Proveedor del SO deducido del user-agent; una señal débil y poco correlacionada.',
-    'signal.proxy.name': 'Detección de Proxy / VPN',
-    'signal.proxy.desc':
-      'Detecta el uso de proxy del navegador o VPN a través de detección de fugas WebRTC, análisis de conexiones y verificaciones de encabezados proxy.',
+    'signal.dnsLeak.name': 'Detección de fuga DNS',
+    'signal.dnsLeak.desc':
+      'Detecta fugas DNS mediante exposición IP WebRTC y verificaciones de consistencia de resolución DNS-over-HTTPS entre proveedores DNS globales y chinos.',
     'scan.detecting': 'Verificando',
     'scan.ready': 'Listo para escanear',
     'result.hitsTitle': 'Señales coincidentes',
@@ -918,9 +918,9 @@ export const ui = {
     'signal.emoji.name': 'Estilo de renderização de emojis',
     'signal.emoji.desc':
       'Fornecedor do SO deduzido do user-agent; um sinal fraco e pouco correlacionado.',
-    'signal.proxy.name': 'Detecção de Proxy / VPN',
-    'signal.proxy.desc':
-      'Detecta uso de proxy do navegador ou VPN através de detecção de vazamento WebRTC, análise de conexão e verificações de cabeçalhos proxy.',
+    'signal.dnsLeak.name': 'Detecção de vazamento DNS',
+    'signal.dnsLeak.desc':
+      'Detecta vazamentos DNS através de exposição IP WebRTC e verificações de consistência de resolução DNS-over-HTTPS entre provedores DNS globais e chineses.',
     'scan.detecting': 'Verificando',
     'scan.ready': 'Pronto para escanear',
     'result.hitsTitle': 'Sinais correspondentes',
@@ -1031,9 +1031,9 @@ export const ui = {
     'signal.emoji.name': 'Стиль отображения эмодзи',
     'signal.emoji.desc':
       'Поставщик ОС, определённый по user-agent; слабый, слабо коррелированный сигнал.',
-    'signal.proxy.name': 'Определение прокси / VPN',
-    'signal.proxy.desc':
-      'Определяет использование прокси-сервера браузера или VPN с помощью обнаружения утечек WebRTC, анализа соединений и проверок заголовков прокси.',
+    'signal.dnsLeak.name': 'Обнаружение утечки DNS',
+    'signal.dnsLeak.desc':
+      'Обнаруживает утечки DNS через раскрытие IP WebRTC и проверки согласованности разрешения DNS-over-HTTPS между глобальными и китайскими DNS-провайдерами.',
     'scan.detecting': 'Проверка',
     'scan.ready': 'Готово к сканированию',
     'result.hitsTitle': 'Совпавшие сигналы',
@@ -1144,9 +1144,9 @@ export const ui = {
     'signal.emoji.name': 'نمط عرض الرموز التعبيرية',
     'signal.emoji.desc':
       'مزود نظام التشغيل المستنتج من user-agent؛ إشارة ضعيفة وغير مرتبطة بشكل وثيق.',
-    'signal.proxy.name': 'كشف البروكسي / VPN',
-    'signal.proxy.desc':
-      'يكتشف استخدام البروكسي أو VPN من خلال كشف تسريبات WebRTC وتحليل الاتصال وفحص رؤوس البروكسي.',
+    'signal.dnsLeak.name': 'كشف تسرب DNS',
+    'signal.dnsLeak.desc':
+      'يكتشف تسرب DNS من خلال كشف IP عبر WebRTC وفحوصات اتساق تحليل DNS-over-HTTPS بين مزودي DNS العالميين والصينيين.',
     'scan.detecting': 'جاري التحقق',
     'scan.ready': 'جاهز للمسح',
     'result.hitsTitle': 'الإشارات المتطابقة',
@@ -1257,9 +1257,9 @@ export const ui = {
     'signal.emoji.name': 'इमोजी रेंडरिंग शैली',
     'signal.emoji.desc':
       'User-agent से अनुमानित OS विक्रेता; एक कमज़ोर, कम सहसंबद्ध संकेत।',
-    'signal.proxy.name': 'प्रॉक्सी / VPN पहचान',
-    'signal.proxy.desc':
-      'WebRTC रिसाव का पता लगाने, कनेक्शन विश्लेषण और प्रॉक्सी हेडर जांच के माध्यम से ब्राउज़र प्रॉक्सी या VPN उपयोग का पता लगाता है।',
+    'signal.dnsLeak.name': 'DNS लीक पहचान',
+    'signal.dnsLeak.desc':
+      'WebRTC IP एक्सपोजर और वैश्विक/चीनी DNS प्रदाताओं के बीच DNS-over-HTTPS रिज़ॉल्यूशन संगतता जांच के माध्यम से DNS लीक का पता लगाता है।',
     'scan.detecting': 'जांच हो रही है',
     'scan.ready': 'स्कैन के लिए तैयार',
     'result.hitsTitle': 'मिलान संकेत',
@@ -1370,9 +1370,9 @@ export const ui = {
     'signal.emoji.name': 'Stile di rendering delle emoji',
     'signal.emoji.desc':
       'Fornitore OS dedotto dal user-agent; un segnale debole e poco correlato.',
-    'signal.proxy.name': 'Rilevamento Proxy / VPN',
-    'signal.proxy.desc':
-      'Rileva l\'uso di proxy del browser o VPN tramite il rilevamento delle fughe WebRTC, l\'analisi della connessione e i controlli delle intestazioni proxy.',
+    'signal.dnsLeak.name': 'Rilevamento perdita DNS',
+    'signal.dnsLeak.desc':
+      'Rileva le perdite DNS tramite esposizione IP WebRTC e controlli di coerenza della risoluzione DNS-over-HTTPS tra provider DNS globali e cinesi.',
     'scan.detecting': 'Verifica in corso',
     'scan.ready': 'Pronto per la scansione',
     'result.hitsTitle': 'Segnali corrispondenti',
@@ -1483,9 +1483,9 @@ export const ui = {
     'signal.emoji.name': 'Emoji weergavestijl',
     'signal.emoji.desc':
       'OS leverancier afgeleid van user-agent; een zwak, los gecorrigeerd signaal.',
-    'signal.proxy.name': 'Proxy / VPN detectie',
-    'signal.proxy.desc':
-      'Detecteert browser proxy of VPN gebruik door WebRTC lekdetectie, verbindingsanalyse en proxy header controles.',
+    'signal.dnsLeak.name': 'DNS-lek detectie',
+    'signal.dnsLeak.desc':
+      'Detecteert DNS-lekken door WebRTC IP-blootstelling en DNS-over-HTTPS resolutie consistentiecontroles tussen wereldwijde en Chinese DNS-providers.',
     'scan.detecting': 'Controleren',
     'scan.ready': 'Klaar om te scannen',
     'result.hitsTitle': 'Overeenkomende signalen',
@@ -1596,9 +1596,9 @@ export const ui = {
     'signal.emoji.name': 'Styl renderowania emoji',
     'signal.emoji.desc':
       'Dostawca systemu operacyjnego wywnioskowany z user-agent; słabo skorelowany sygnał.',
-    'signal.proxy.name': 'Wykrywanie Proxy / VPN',
-    'signal.proxy.desc':
-      'Wykrywa użycie proxy przeglądarki lub VPN poprzez wykrywanie wycieków WebRTC, analizę połączeń i sprawdzanie nagłówków proxy.',
+    'signal.dnsLeak.name': 'Wykrywanie wycieku DNS',
+    'signal.dnsLeak.desc':
+      'Wykrywa wycieki DNS poprzez ekspozycję IP WebRTC i kontrole spójności rozwiązywania DNS-over-HTTPS między globalnymi a chińskimi dostawcami DNS.',
     'scan.detecting': 'Sprawdzanie',
     'scan.ready': 'Gotowy do skanowania',
     'result.hitsTitle': 'Dopasowane sygnały',
@@ -1709,9 +1709,9 @@ export const ui = {
     'signal.emoji.name': 'Emoji işleme stili',
     'signal.emoji.desc':
       'User-agent\'tan tahmin edilen işletim sistemi satıcısı; zayıf, gevşek korelasyonlu bir işaret.',
-    'signal.proxy.name': 'Proxy / VPN Algılama',
-    'signal.proxy.desc':
-      'WebRTC sızıntı tespiti, bağlantı analizi ve proxy başlık kontrolleri aracılığıyla tarayıcı proxy veya VPN kullanımını algılar.',
+    'signal.dnsLeak.name': 'DNS sızıntı tespiti',
+    'signal.dnsLeak.desc':
+      'WebRTC IP maruziyeti ve küresel/Çin DNS sağlayıcıları arasında DNS-over-HTTPS çözümleme tutarlılık kontrolleri aracılığıyla DNS sızıntılarını algılar.',
     'scan.detecting': 'Kontrol ediliyor',
     'scan.ready': 'Taramaya hazır',
     'result.hitsTitle': 'Eşleşen işaretler',
@@ -1822,9 +1822,9 @@ export const ui = {
     'signal.emoji.name': 'Phong cách hiển thị emoji',
     'signal.emoji.desc':
       'Nhà cung cấp OS suy ra từ user-agent; tín hiệu yếu và ít tương quan.',
-    'signal.proxy.name': 'Phát hiện Proxy / VPN',
-    'signal.proxy.desc':
-      'Phát hiện sử dụng proxy trình duyệt hoặc VPN thông qua phát hiện rò rỉ WebRTC, phân tích kết nối và kiểm tra header proxy.',
+    'signal.dnsLeak.name': 'Phát hiện rò rỉ DNS',
+    'signal.dnsLeak.desc':
+      'Phát hiện rò rỉ DNS thông qua phơi bày IP WebRTC và kiểm tra tính nhất quán phân giải DNS-over-HTTPS giữa các nhà cung cấp DNS toàn cầu và Trung Quốc.',
     'scan.detecting': 'Đang kiểm tra',
     'scan.ready': 'Sẵn sàng quét',
     'result.hitsTitle': 'Tín hiệu khớp',
@@ -1935,9 +1935,9 @@ export const ui = {
     'signal.emoji.name': 'สไตล์การเรนเดอร์อิโมจิ',
     'signal.emoji.desc':
       'ผู้ให้บริการ OS ที่คาดเดาจาก user-agent สัญญาณที่อ่อนและเกี่ยวข้องน้อย',
-    'signal.proxy.name': 'การตรวจจับ Proxy / VPN',
-    'signal.proxy.desc':
-      'ตรวจจับการใช้งาน proxy เบราว์เซอร์หรือ VPN ผ่านการตรวจจับการรั่วไหล WebRTC การวิเคราะห์การเชื่อมต่อ และการตรวจสอบ header proxy',
+    'signal.dnsLeak.name': 'การตรวจจับการรั่วไหลของ DNS',
+    'signal.dnsLeak.desc':
+      'ตรวจจับการรั่วไหลของ DNS ผ่านการเปิดเผย IP WebRTC และการตรวจสอบความสอดคล้องของการแก้ไข DNS-over-HTTPS ระหว่างผู้ให้บริการ DNS ทั่วโลกและจีน',
     'scan.detecting': 'กำลังตรวจสอบ',
     'scan.ready': 'พร้อมสแกน',
     'result.hitsTitle': 'สัญญาณที่ตรงกัน',
@@ -2048,9 +2048,9 @@ export const ui = {
     'signal.emoji.name': 'Gaya rendering emoji',
     'signal.emoji.desc':
       'Vendor OS dugaan dari user-agent; sinyal lemah dan berkorelasi rendah.',
-    'signal.proxy.name': 'Deteksi Proxy / VPN',
-    'signal.proxy.desc':
-      'Mendeteksi penggunaan proxy browser atau VPN melalui deteksi kebocoran WebRTC, analisis koneksi, dan pemeriksaan header proxy.',
+    'signal.dnsLeak.name': 'Deteksi kebocoran DNS',
+    'signal.dnsLeak.desc':
+      'Mendeteksi kebocoran DNS melalui paparan IP WebRTC dan pemeriksaan konsistensi resolusi DNS-over-HTTPS antara penyedia DNS global dan Tiongkok.',
     'scan.detecting': 'Memeriksa',
     'scan.ready': 'Siap memindai',
     'result.hitsTitle': 'Sinyal yang cocok',
