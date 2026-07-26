@@ -34,6 +34,7 @@ const OG_LOCALE: Record<string, string> = {
 };
 const htmlLang = HTML_LANG[lang] || 'en';
 const ogLocale = OG_LOCALE[lang] || 'en_US';
+const dir = lang === 'ar' ? 'rtl' : 'ltr';
 
 const title = t('meta.title');
 const description = t('meta.description');
@@ -77,7 +78,7 @@ const jsonLd = {
 ---
 
 <!doctype html>
-<html lang={htmlLang}>
+<html lang={htmlLang} dir={dir}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -1300,6 +1301,50 @@ const jsonLd = {
           transition: none !important;
           animation: none !important;
         }
+      }
+
+      /* ---------- RTL (Arabic) ---------- */
+      [dir='rtl'] .scan-row::before {
+        left: auto;
+        right: 0;
+      }
+      [dir='rtl'] .scan-row__contrib {
+        text-align: left;
+      }
+      [dir='rtl'] .sponsor__text strong {
+        margin-right: 0;
+        margin-left: 3px;
+      }
+      [dir='rtl'] .scan-row.is-active::after {
+        animation: scan-sweep-rtl 1s ease-in-out infinite;
+      }
+      @keyframes scan-sweep-rtl {
+        to {
+          transform: translateX(-100%);
+        }
+      }
+      [dir='rtl'] .privacy {
+        flex-direction: row-reverse;
+        text-align: right;
+      }
+      [dir='rtl'] .privacy svg {
+        margin-right: 0;
+        margin-left: auto;
+      }
+      [dir='rtl'] .faq summary {
+        flex-direction: row-reverse;
+      }
+      [dir='rtl'] .social__pop {
+        right: auto;
+        left: -8px;
+      }
+      [dir='rtl'] .mascot__zzz {
+        right: auto;
+        left: 26px;
+      }
+      [dir='rtl'] .mascot__zzz i {
+        right: auto;
+        left: 6px;
       }
     </style>
   </body>
