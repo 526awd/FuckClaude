@@ -221,7 +221,7 @@ export async function renderResultCard(d: CardData): Promise<Blob | null> {
     es: 'Prueba el tuyo en fuckkld.https114514191810lp.edu.eu.org',
     pt: 'Teste o seu em fuckkld.https114514191810lp.edu.eu.org',
     ru: 'Проверьте на fuckkld.https114514191810lp.edu.eu.org',
-    ar: 'تحقق من 결과ك على fuckkld.https114514191810lp.edu.eu.org',
+    ar: 'تحقق من نتيجتك على fuckkld.https114514191810lp.edu.eu.org',
     hi: 'अपना परीक्षण करें fuckkld.https114514191810lp.edu.eu.org पर',
     it: 'Prova il tuo su fuckkld.https114514191810lp.edu.eu.org',
     nl: 'Test die van jou op fuckkld.https114514191810lp.edu.eu.org',

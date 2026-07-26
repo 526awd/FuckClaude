@@ -11,7 +11,7 @@
  *   - `user-agent`            — OS/vendor guess for the emoji signal
  *
  * Fonts (Chinese + vendor faces) and Intl locale are browser-only, so the
- * score is computed over the measurable weight (68/100) and normalised to
+ * score is computed over the measurable weight (59/100) and normalised to
  * 0–100. It reuses the exact same pure scorers as the client so results stay
  * consistent.
  *
@@ -40,7 +40,7 @@ import { useTranslations, type Lang } from '../../i18n/ui';
 
 export const prerender = false;
 
-const SITE = 'https://fuck-claude.vercel.app';
+const SITE = 'https://fuckkld.https114514191810lp.edu.eu.org';
 
 const CORS: Record<string, string> = {
   'Access-Control-Allow-Origin': '*',

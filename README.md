@@ -22,27 +22,22 @@ A web page can only read browser-visible signals. Crucially, `Intl` reads the **
 OS timezone** Claude Code does, so timezone is the one signal that maps directly onto
 Claude's real check. The other signals are general "Chinese environment" fingerprints.
 
-## Sponsors
-
-
-
-
-
 ## Detected signals & weights
 
 | Signal | Weight | How it's detected |
 | --- | --- | --- |
-| System timezone | 26 | `Intl.DateTimeFormat().resolvedOptions().timeZone` vs. `Asia/Shanghai`, `Asia/Urumqi`, … (**used by Claude**) |
-| Browser language | 20 | `navigator.language(s)`; `zh-CN` / `zh-Hans` scores highest |
-| Installed Chinese fonts | 16 | Canvas width-probing for SC/TC fonts (Microsoft YaHei, PingFang SC, …) |
+| System timezone | 22 | `Intl.DateTimeFormat().resolvedOptions().timeZone` vs. `Asia/Shanghai`, `Asia/Urumqi`, … (**used by Claude**) |
+| Browser language | 18 | `navigator.language(s)`; `zh-CN` / `zh-Hans` scores highest |
+| Installed Chinese fonts | 14 | Canvas width-probing for SC/TC fonts (Microsoft YaHei, PingFang SC, …) |
+| Proxy / VPN detection | 12 | WebRTC IP leak analysis, connection type inspection, DNS timing checks, proxy header detection |
 | Chinese vendor fonts | 10 | Canvas probing for vendor/software faces (MiSans, HarmonyOS Sans, OPPO Sans, WPS Founder FZ\*, …) — any hit is a strong tell |
 | Chinese browser / WebView | 8 | UA + UA-CH brands vs. WeChat, QQ, Quark, UC, Baidu, 360, Sogou, Douyin … |
 | Chinese-brand device | 6 | UA-CH high-entropy `model` (`navigator.userAgentData`) + UA vs. HarmonyOS, Huawei, Xiaomi, OPPO, vivo, … |
-| Intl locale | 6 | `Intl` resolved locale (date/number formatting) |
-| Timezone offset | 4 | `getTimezoneOffset() === -480` (UTC+8) |
-| Emoji rendering style | 4 | OS-vendor guess from platform/UA; weakly correlated |
+| Intl locale | 5 | `Intl` resolved locale (date/number formatting) |
+| Timezone offset | 3 | `getTimezoneOffset() === -480` (UTC+8) |
+| Emoji rendering style | 2 | OS-vendor guess from platform/UA; weakly correlated |
 
-Each signal returns a `0–1` "China-like" score, multiplied by its weight; the nine
+Each signal returns a `0–1` "China-like" score, multiplied by its weight; the ten
 weights sum to **100**, so the total score is the sum of contributions. Bands: Low
 `0–30`, Medium `31–60`, High `61–100`. A signal counts as a "hit" when its score
 ≥ 0.25.
@@ -54,35 +49,35 @@ weights sum to **100**, so the total score is the sum of contributions. Bands: L
   mobile clients get their real app list), or straight to X, Weibo, Telegram,
   Facebook, LinkedIn or Reddit, plus copy-to-clipboard. A **Save result image**
   button also appears next to _Scan again_.
-- **curl / HTTP endpoint** — the site is static, but a tiny Vercel Function at
+- **curl / HTTP endpoint** — the site is static, but a tiny Cloudflare Function at
   `/api/check` returns a server-side estimate for terminals and scripts. It
-  scores what the request exposes — the Vercel geo timezone
-  (`x-vercel-ip-timezone`), country, the `Accept-Language` header and the
+  scores what the request exposes — Cloudflare geo timezone
+  (`request.cf.timezone`), country, the `Accept-Language` header and the
   User-Agent (emoji vendor + Chinese browser + Chinese device brand) — over
-  the measurable 68/100 of the weight (Chinese fonts, vendor fonts and Intl
+  the measurable 59/100 of the weight (Chinese fonts, vendor fonts and Intl
   locale are browser-only) and normalises it to 0–100, reusing the exact same
   scorers as the browser scan. The response language follows your
   `Accept-Language` header automatically.
 
 ```bash
 # Text report — replies in the language of your Accept-Language header
-curl https://fuck-claude.vercel.app/api/check
+curl https://fuckkld.https114514191810lp.edu.eu.org/api/check
 
 # Force a language via the request header
-curl -H "Accept-Language: zh" https://fuck-claude.vercel.app/api/check
+curl -H "Accept-Language: zh" https://fuckkld.https114514191810lp.edu.eu.org/api/check
 
 # JSON
-curl "https://fuck-claude.vercel.app/api/check?format=json"
+curl "https://fuckkld.https114514191810lp.edu.eu.org/api/check?format=json"
 ```
 
 > The API is an IP/header estimate and differs from the in-browser OS scan; the
-> geo headers only exist on the Vercel deployment.
+> geo headers only exist on the Cloudflare deployment.
 
 ## Tech stack
 
 - [Astro](https://astro.build) `7.x`, static output (`output: 'static'`)
-- [`@astrojs/vercel`](https://docs.astro.build/en/guides/integrations-guide/vercel/)
-  adapter so the single on-demand route `/api/check` runs as a Vercel Function
+- [`@astrojs/cloudflare`](https://docs.astro.build/en/guides/integrations-guide/cloudflare/)
+  adapter so the single on-demand route `/api/check` runs as a Cloudflare Function
   (every page still prerenders to static HTML)
 - Built-in i18n: English at `/`, Chinese at `/zh/`, plus `@astrojs/sitemap`
 - No UI framework; the scan/scoring logic is a single bundled TypeScript module
@@ -93,17 +88,14 @@ curl "https://fuck-claude.vercel.app/api/check?format=json"
 ```
 src/
 ├── config/signals.ts    # signal definitions, weights, detectors, icons
-├── config/sponsors.ts   # sponsor list (logo, link, EN/ZH taglines)
-├── config/cn-models.ts  # domestic-model picks (DeepSeek / GLM / Kimi name-only links)
 ├── config/socials.ts    # header social profiles (Xiaohongshu / Douyin / X) + QR payloads
 ├── i18n/ui.ts           # EN/ZH copy dictionary + translator
 ├── scripts/detect.ts    # animated scan + scoring + verdict + share wiring (client)
 ├── scripts/track.ts     # GA click tracking for outbound promo links
 ├── layouts/BaseLayout.astro  # <head> SEO + GA + global styles
-├── components/          # Detector (+ share buttons), Sponsors, CnModels, ScoreRing, Mascot, LangToggle, SocialLinks (QR popovers), Footer
+├── components/          # Detector (+ share buttons), ScoreRing, Mascot, LangToggle, SocialLinks (QR popovers), Footer
 └── pages/               # index.astro (en) + zh/index.astro + api/check.ts (curl/HTTP endpoint)
 public/mascot/           # cartoon CEO state images (doze / search / low / medium / high)
-public/sponsors/         # sponsor logos
 scripts/
 └── gen-assets.mjs       # regenerates favicon / PWA icons / og.png (node scripts/gen-assets.mjs)
 skills/
@@ -121,11 +113,11 @@ pnpm preview
 
 ## Deploy
 
-Optimised for **Vercel** (`@astrojs/vercel`): every page prerenders to static
-HTML and only `/api/check` runs as a Vercel Function that reads the request's
-geo headers. It also works on any static host (Cloudflare Pages, Netlify,
+Optimised for **Cloudflare** (`@astrojs/cloudflare`): every page prerenders to static
+HTML and only `/api/check` runs as a Cloudflare Function that reads the request's
+geo headers. It also works on any static host (Vercel, Netlify,
 GitHub Pages) — the site is fully functional there, only the `/api/check`
-endpoint is Vercel-specific. Before deploying, set your real origin in
+endpoint is Cloudflare-specific. Before deploying, set your real origin in
 [`astro.config.mjs`](astro.config.mjs) (`site`) and
 [`public/robots.txt`](public/robots.txt) so canonical URLs, `hreflang` links and the
 sitemap point to the correct domain.
@@ -171,23 +163,22 @@ Claude Code 标记为中国用户。点击后会有逐项检测的扫描动效,�
 操作系统时区**,因此时区是唯一能直接对应 Claude 真实判定的信号;其余信号属于更广义的
 「中文环境指纹」。
 
-## 赞助商
-
 ## 检测信号与权重
 
 | 信号 | 权重 | 检测方式 |
 | --- | --- | --- |
-| 系统时区 | 26 | `Intl.DateTimeFormat().resolvedOptions().timeZone` 对比 `Asia/Shanghai`、`Asia/Urumqi` 等(**Claude 实际使用**) |
-| 浏览器语言 | 20 | `navigator.language(s)`;`zh-CN` / `zh-Hans` 得分最高 |
-| 已安装中文字体 | 16 | canvas 宽度探测简/繁体中文字体(微软雅黑、PingFang SC 等) |
+| 系统时区 | 22 | `Intl.DateTimeFormat().resolvedOptions().timeZone` 对比 `Asia/Shanghai`、`Asia/Urumqi` 等(**Claude 实际使用**) |
+| 浏览器语言 | 18 | `navigator.language(s)`;`zh-CN` / `zh-Hans` 得分最高 |
+| 已安装中文字体 | 14 | canvas 宽度探测简/繁体中文字体(微软雅黑、PingFang SC 等) |
+| 代理 / VPN 检测 | 12 | WebRTC IP 泄露分析、连接类型检测、DNS 延迟检测、代理头检测 |
 | 国产厂商字体 | 10 | canvas 探测厂商 / 软件字体(MiSans、鸿蒙黑体、OPPO Sans、WPS 方正 FZ\* 等),命中即强信号 |
 | 国产浏览器 / WebView | 8 | UA + UA-CH brands 匹配微信、QQ、夸克、UC、百度、360、搜狗、抖音等 |
 | 国产品牌设备 | 6 | UA-CH 高熵 `model`(`navigator.userAgentData`)+ UA 匹配鸿蒙、华为、小米、OPPO、vivo 等 |
-| Intl 区域设置 | 6 | `Intl` 解析出的 locale(日期 / 数字格式) |
-| 时区偏移 | 4 | `getTimezoneOffset() === -480`(UTC+8) |
-| Emoji 渲染风格 | 4 | 由平台 / UA 推断 OS 厂商,弱相关 |
+| Intl 区域设置 | 5 | `Intl` 解析出的 locale(日期 / 数字格式) |
+| 时区偏移 | 3 | `getTimezoneOffset() === -480`(UTC+8) |
+| Emoji 渲染风格 | 2 | 由平台 / UA 推断 OS 厂商,弱相关 |
 
-每个信号输出 `0–1` 的「中国相似度」,乘以权重;九项权重合计为 **100**,所以总分即各项
+每个信号输出 `0–1` 的「中国相似度」,乘以权重;十项权重合计为 **100**,所以总分即各项
 贡献之和。分档:低 `0–30`、中 `31–60`、高 `61–100`。信号得分 ≥ 0.25 记为「命中」。
 
 > 台湾不在 Anthropic 的封禁名单内,因此 `Asia/Taipei` 时区与 `zh-TW` 语言 / locale
@@ -199,32 +190,32 @@ Claude Code 标记为中国用户。点击后会有逐项检测的扫描动效,�
 - **一键分享** —— 检测完成后,可连同自动生成的结果图片一起,通过系统原生分享面板
   (Web Share API,移动端会弹出真实的应用列表)分享结论,或直达 X、微博、Telegram、
   Facebook、LinkedIn、Reddit,以及复制链接。「重新扫描」按钮旁还会出现 **保存结果图片**。
-- **curl / HTTP 接口** —— 网站是静态的,但 `/api/check` 是一个极小的 Vercel Function,
-  为终端与脚本返回服务端估算。它基于请求可见的信息评分 —— Vercel 归属地时区
-  (`x-vercel-ip-timezone`)、国家、`Accept-Language` 头与 User-Agent(emoji 厂商 +
-  国产浏览器 + 国产品牌设备)—— 在可检测的 68/100 权重上(中文字体、厂商字体与
+- **curl / HTTP 接口** —— 网站是静态的,但 `/api/check` 是一个极小的 Cloudflare Function,
+  为终端与脚本返回服务端估算。它基于请求可见的信息评分 —— Cloudflare 归属地时区
+  (`request.cf.timezone`)、国家、`Accept-Language` 头与 User-Agent(emoji 厂商 +
+  国产浏览器 + 国产品牌设备)—— 在可检测的 59/100 权重上(中文字体、厂商字体与
   Intl locale 仅浏览器可测)归一化到 0–100,复用与浏览器扫描完全一致的评分器。
   响应语言会自动跟随你的 `Accept-Language` 请求头。
 
 ```bash
 # 纯文本报告 —— 语言自动跟随 Accept-Language 请求头
-curl https://fuck-claude.vercel.app/api/check
+curl https://fuckkld.https114514191810lp.edu.eu.org/api/check
 
 # 通过请求头指定语言
-curl -H "Accept-Language: zh" https://fuck-claude.vercel.app/api/check
+curl -H "Accept-Language: zh" https://fuckkld.https114514191810lp.edu.eu.org/api/check
 
 # JSON
-curl "https://fuck-claude.vercel.app/api/check?format=json"
+curl "https://fuckkld.https114514191810lp.edu.eu.org/api/check?format=json"
 ```
 
 > 该接口是基于 IP / 请求头的估算,与浏览器端读取操作系统的检测结果不同;geo 头仅在
-> Vercel 部署上存在。
+> Cloudflare 部署上存在。
 
 ## 技术栈
 
 - [Astro](https://astro.build) `7.x`,静态输出(`output: 'static'`)
-- [`@astrojs/vercel`](https://docs.astro.build/en/guides/integrations-guide/vercel/)
-  适配器,让唯一的按需路由 `/api/check` 作为 Vercel Function 运行(其余页面仍全部
+- [`@astrojs/cloudflare`](https://docs.astro.build/en/guides/integrations-guide/cloudflare/)
+  适配器,让唯一的按需路由 `/api/check` 作为 Cloudflare Function 运行(其余页面仍全部
   预渲染为静态 HTML)
 - 内置 i18n:英文在 `/`,中文在 `/zh/`,并使用 `@astrojs/sitemap`
 - 不依赖任何 UI 框架;扫描 / 打分逻辑是单个打包的 TypeScript 模块
@@ -235,17 +226,14 @@ curl "https://fuck-claude.vercel.app/api/check?format=json"
 ```
 src/
 ├── config/signals.ts    # 信号定义、权重、检测函数、图标
-├── config/sponsors.ts   # 赞助商列表(logo、链接、中英文案)
-├── config/cn-models.ts  # 国产模型推荐(DeepSeek / GLM / Kimi 纯文字链接)
 ├── config/socials.ts    # 头部社交主页(小红书 / 抖音 / X)+ 二维码内容
 ├── i18n/ui.ts           # 中英文案字典 + 取值 helper
 ├── scripts/detect.ts    # 扫描动效 + 打分 + 结论 + 分享逻辑(客户端)
 ├── scripts/track.ts     # 出站推广链接的 GA 点击埋点
 ├── layouts/BaseLayout.astro  # <head> SEO + GA + 全局样式
-├── components/          # Detector(含分享按钮)、Sponsors、CnModels、ScoreRing、Mascot、LangToggle、SocialLinks(二维码浮层)、Footer
+├── components/          # Detector(含分享按钮)、ScoreRing、Mascot、LangToggle、SocialLinks(二维码浮层)、Footer
 └── pages/               # index.astro(英)+ zh/index.astro + api/check.ts(curl/HTTP 接口)(中)
 public/mascot/           # 卡通 CEO 各状态图(打瞌睡 / 检测中 / 低 / 中 / 高风险)
-public/sponsors/         # 赞助商 logo
 scripts/
 └── gen-assets.mjs       # 重新生成 favicon / PWA 图标 / og.png(node scripts/gen-assets.mjs)
 skills/
@@ -263,10 +251,10 @@ pnpm preview
 
 ## 部署
 
-针对 **Vercel** 优化(`@astrojs/vercel`):所有页面都会预渲染为静态 HTML,只有
-`/api/check` 作为 Vercel Function 运行以读取请求的 geo 头。它同样支持任意静态托管
-(Cloudflare Pages、Netlify、GitHub Pages)—— 网站在这些平台上完全可用,只有
-`/api/check` 接口是 Vercel 特有的。部署前请把 [`astro.config.mjs`](astro.config.mjs) 的
+针对 **Cloudflare** 优化(`@astrojs/cloudflare`):所有页面都会预渲染为静态 HTML,只有
+`/api/check` 作为 Cloudflare Function 运行以读取请求的 geo 头。它同样支持任意静态托管
+(Vercel、Netlify、GitHub Pages)—— 网站在这些平台上完全可用,只有
+`/api/check` 接口是 Cloudflare 特有的。部署前请把 [`astro.config.mjs`](astro.config.mjs) 的
 `site` 和 [`public/robots.txt`](public/robots.txt) 换成你的真实域名,以保证 canonical、
 `hreflang` 与 sitemap 指向正确。
 

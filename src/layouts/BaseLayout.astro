@@ -9,14 +9,14 @@ interface Props {
 const { lang, path } = Astro.props;
 const t = useTranslations(lang);
 
-const site = Astro.site ?? new URL('https://fuck-claude.vercel.app');
+const site = Astro.site ?? new URL('https://fuckkld.https114514191810lp.edu.eu.org');
 const canonical = new URL(path, site).href;
 const ogImage = new URL('/og.png', site).href;
 
 const LANG_HREFLANG: Record<string, string> = {
   en: 'en', zh: 'zh-CN', ja: 'ja-JP', ko: 'ko-KR', fr: 'fr-FR', de: 'de-DE',
-  es: 'es', pt: 'pt-BR', ru: 'ru', ar: 'ar', hi: 'hi', it: 'it',
-  nl: 'nl', pl: 'pl', tr: 'tr', vi: 'vi', th: 'th', id: 'id',
+  es: 'es-ES', pt: 'pt-BR', ru: 'ru-RU', ar: 'ar-SA', hi: 'hi-IN', it: 'it-IT',
+  nl: 'nl-NL', pl: 'pl-PL', tr: 'tr-TR', vi: 'vi-VN', th: 'th-TH', id: 'id-ID',
 };
 const langUrls = Object.fromEntries(
   Object.keys(LANG_HREFLANG).map((l) => [l, new URL(l === 'en' ? '/' : `/${l}/`, site).href]),
@@ -24,8 +24,8 @@ const langUrls = Object.fromEntries(
 
 const HTML_LANG: Record<string, string> = {
   en: 'en', zh: 'zh-CN', ja: 'ja-JP', ko: 'ko-KR', fr: 'fr-FR', de: 'de-DE',
-  es: 'es', pt: 'pt-BR', ru: 'ru', ar: 'ar', hi: 'hi', it: 'it',
-  nl: 'nl', pl: 'pl', tr: 'tr', vi: 'vi', th: 'th', id: 'id',
+  es: 'es-ES', pt: 'pt-BR', ru: 'ru-RU', ar: 'ar-SA', hi: 'hi-IN', it: 'it-IT',
+  nl: 'nl-NL', pl: 'pl-PL', tr: 'tr-TR', vi: 'vi-VN', th: 'th-TH', id: 'id-ID',
 };
 const OG_LOCALE: Record<string, string> = {
   en: 'en_US', zh: 'zh_CN', ja: 'ja_JP', ko: 'ko_KR', fr: 'fr_FR', de: 'de_DE',
